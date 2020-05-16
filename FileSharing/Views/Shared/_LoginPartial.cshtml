@@ -1,6 +1,4 @@
-﻿@using FileSharing.Models
-@model LoginModel
-@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -8,8 +6,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @*@Html.ActionLink("Здравствуйте " + Model.Login + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                @Html.ActionLink("Здравствуйте ", "Index", "Home")
+                @Html.ActionLink("Здравствуйте, " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
         </ul>

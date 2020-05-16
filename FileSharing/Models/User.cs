@@ -10,7 +10,13 @@ namespace FileSharing.Models
     {
         //[ScaffoldColumn(false)]
         public int Id { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Логин")]
         public string Login { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
         //public int Age { get; set; }
 
