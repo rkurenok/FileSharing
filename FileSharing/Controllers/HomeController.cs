@@ -18,12 +18,12 @@ namespace FileSharing.Controllers
             return result;
         }
 
-        [Authorize]
-        public ActionResult About()
+        [Authorize(Roles = "admin")]
+        public string About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return "Это увидит только администратор";
         }
 
         public ActionResult Contact()
