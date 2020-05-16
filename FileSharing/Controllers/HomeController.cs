@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileSharing.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,6 +27,17 @@ namespace FileSharing.Controllers
         public string About()
         {
             ViewBag.Message = "Your application description page.";
+
+            //using (UserContext db = new UserContext())
+            //{
+            //    User user1 = db.Users.FirstOrDefault(u => u.Id == user.Id);
+
+            //    if (user1.RoleId != 2)
+            //    {
+            //        RedirectToRoute("");
+            //    }
+
+            //}
 
             return "Это увидит только администратор";
         }
