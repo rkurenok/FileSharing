@@ -8,14 +8,18 @@ namespace FileSharing.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        public ActionResult Index()
         {
             string result = "Вы не авторизованы";
+
             if (User.Identity.IsAuthenticated)
             {
                 result = "Ваш логин: " + User.Identity.Name;
             }
-            return result;
+
+            ViewBag.Result = result;
+
+            return View();
         }
 
         [Authorize(Roles = "admin")]
