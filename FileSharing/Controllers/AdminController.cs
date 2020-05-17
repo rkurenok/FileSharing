@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace FileSharing.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         UserContext db = new UserContext();
