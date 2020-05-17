@@ -19,9 +19,31 @@ namespace FileSharing.Models
         [Display(Name = "Новый пароль")]
         public string NewPassword { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение нового пароля")]
         [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class EditAccount
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Электронная почта")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Логин")]
+        public string Login { get; set; }
+
+        [Required]
+        [Display(Name = "Возраст")]
+        public int Age { get; set; }
+
+        [Required]
+        [Display(Name = "Пол")]
+        public string Male { get; set; }
     }
 }

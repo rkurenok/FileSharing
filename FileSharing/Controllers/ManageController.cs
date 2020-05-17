@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace FileSharing.Controllers
 {
@@ -55,6 +56,44 @@ namespace FileSharing.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult EditAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(EditAccount model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            User user = null;
+
+            using (UserContext db = new UserContext())
+            {
+                var userName = User.Identity.Name;
+                user = db.Users.FirstOrDefault(u => u.Login == userName);
+
+                user.Email = model.Email;
+                user.Login = model.Login;
+                user.Age = model.Age;
+                user.Male = model.Male;
+                db.SaveChanges();
+
+                FormsAuthentication.SetAuthCookie(model.Login, true);
+
+                user = db.Users.Where(u => u.Email == model.Email && u.Login == model.Login && u.Age == model.Age && u.Male == model.Male).FirstOrDefault();
+
+                if (user != null)
+                {
+                    return RedirectToAction("Index");
                 }
             }
             return View(model);
