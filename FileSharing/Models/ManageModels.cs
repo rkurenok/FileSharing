@@ -14,7 +14,7 @@ namespace FileSharing.Models
         public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [StringLength(100, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
+        [MinLength(5, ErrorMessage = "Пароль должен содержать минимум 5 символов")]
         [DataType(DataType.Password)]
         [Display(Name = "Новый пароль")]
         public string NewPassword { get; set; }
@@ -28,6 +28,7 @@ namespace FileSharing.Models
 
     public class EditAccount
     {
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Электронная почта")]
