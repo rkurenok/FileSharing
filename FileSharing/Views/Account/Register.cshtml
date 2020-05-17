@@ -59,8 +59,6 @@
             @Html.LabelFor(model => model.Male, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.Male, new { htmlAttributes = new { @class = "form-control" } })*@
-                @*<input type="radio" name="Male" value="Мужской" />
-        <input type="radio" name="Female" value="Женский" />*@
                 Мужской
                 @Html.RadioButtonFor(model => model.Male, "Мужской", new { htmlAttributes = new { @class = "form-control" } }) &nbsp; &nbsp;
                 Женский
