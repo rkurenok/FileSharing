@@ -137,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CheckedRadioButton.cs" />
     <Compile Include="Migrations\202005161437072_InitialCreate.cs" />
     <Compile Include="Migrations\202005161437072_InitialCreate.designer.cs">
       <DependentUpon>202005161437072_InitialCreate.cs</DependentUpon>

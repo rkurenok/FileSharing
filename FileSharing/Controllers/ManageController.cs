@@ -63,7 +63,18 @@ namespace FileSharing.Controllers
 
         public ActionResult EditAccount()
         {
-            return View();
+            User user = null;
+
+            using (UserContext db = new UserContext())
+            {
+                var userName = User.Identity.Name;
+                user = db.Users.FirstOrDefault(u => u.Login == userName);
+                ViewBag.Email = user.Email;
+                ViewBag.Login = user.Login;
+                ViewBag.Age = user.Age;
+                ViewBag.Male = user.Male;
+            }
+                return View();
         }
 
         [HttpPost]
@@ -80,11 +91,12 @@ namespace FileSharing.Controllers
             {
                 var userName = User.Identity.Name;
                 user = db.Users.FirstOrDefault(u => u.Login == userName);
+                ViewBag.Email = user.Email;
 
                 user.Email = model.Email;
-                user.Login = model.Login;
-                user.Age = model.Age;
-                user.Male = model.Male;
+                ViewBag.Login = user.Login = model.Login;
+                ViewBag.Age = user.Age = model.Age;
+                ViewBag.Male = user.Male = model.Male;
                 db.SaveChanges();
 
                 FormsAuthentication.SetAuthCookie(model.Login, true);
