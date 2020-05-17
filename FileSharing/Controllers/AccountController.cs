@@ -89,7 +89,6 @@ namespace FileSharing.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
     }
