@@ -13,11 +13,19 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            IEnumerable<User> users = db.Users;
+            //IEnumerable<User> users = db.Users;
 
-            return View(users);
+            int pageSize = 3;
+            IEnumerable<User> usersPerPage = db.Users.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Users.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Users = usersPerPage };
+
+            //ViewBag.UserPerPage = usersPerPage;
+            //ViewData["pvm"] = pvm;
+
+            return View(pvm);
         }
 
 
