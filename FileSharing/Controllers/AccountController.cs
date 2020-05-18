@@ -63,7 +63,7 @@ namespace FileSharing.Controllers
                     // создаем нового пользователя
                     using (UserContext db = new UserContext())
                     {
-                        db.Users.Add(new User {Email = model.Email, Login = model.Login, Password = model.Password, Age = model.Age, Male = model.Male, RoleId = 2 });
+                        db.Users.Add(new User {Email = model.Email, Login = model.Login, Password = model.Password, Age = model.Age, Gender = model.Gender, RoleId = 2 });
                         db.SaveChanges();
 
                         user = db.Users.Where(u => u.Login == model.Login && u.Password == model.Password).FirstOrDefault();

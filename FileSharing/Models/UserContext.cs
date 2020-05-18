@@ -30,7 +30,7 @@ namespace FileSharing.Models
                 Login = "somemail@gmail.com",
                 Password = "123456",
                 Age = 21,
-                Male = "Мужской",
+                Gender = "Мужской",
                 RoleId = 1
             });
 

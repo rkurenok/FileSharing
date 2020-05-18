@@ -150,6 +150,10 @@
     <Compile Include="Migrations\202005170820253_MaleMigration.designer.cs">
       <DependentUpon>202005170820253_MaleMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005180916520_GenderMigration.cs" />
+    <Compile Include="Migrations\202005180916520_GenderMigration.designer.cs">
+      <DependentUpon>202005180916520_GenderMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ManageModels.cs" />
@@ -227,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005170820253_MaleMigration.resx">
       <DependentUpon>202005170820253_MaleMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005180916520_GenderMigration.resx">
+      <DependentUpon>202005180916520_GenderMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,5 +1,4 @@
-﻿@using FileSharing.Helpers
-@model FileSharing.Models.EditAccount
+﻿@model FileSharing.Models.User
 
 @{
     ViewBag.Title = "EditAccount";
@@ -11,11 +10,13 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
 <div class="form-horizontal">
-    <h4>EditAccount</h4>
+    <h4>User</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -41,11 +42,13 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Male, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.RadioButton("Male", "Мужской", ViewBag.Male == "Мужской" ? true : false)
-            @Html.RadioButton("Male", "Женский", ViewBag.Male == "Женский" ? true : false)
-            @Html.ValidationMessageFor(model => model.Male, "", new { @class = "text-danger" })
+            @Html.RadioButton("Gender", "Мужской", ViewBag.Gender == "Мужской" ? true : false)
+            Мужской
+            @Html.RadioButton("Gender", "Женский", ViewBag.Gender == "Женский" ? true : false)
+            Женский
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
 
