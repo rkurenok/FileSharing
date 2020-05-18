@@ -27,7 +27,7 @@ namespace FileSharing.Models
         public int Age { get; set; }
 
         [Display(Name = "Пол")]
-        public string Male { get; set; }
+        public string Gender { get; set; }
 
         [Display(Name = "Роль")]
         public int RoleId { get; set; }

@@ -72,7 +72,7 @@ namespace FileSharing.Controllers
                 ViewBag.Email = user.Email;
                 ViewBag.Login = user.Login;
                 ViewBag.Age = user.Age;
-                ViewBag.Male = user.Male;
+                ViewBag.Gender = user.Gender;
             }
                 return View();
         }
@@ -94,14 +94,14 @@ namespace FileSharing.Controllers
                 ViewBag.Email = user.Email;
 
                 user.Email = model.Email;
-                ViewBag.Login = user.Login = model.Login;
-                ViewBag.Age = user.Age = model.Age;
-                ViewBag.Male = user.Male = model.Male;
+                user.Login = model.Login;
+                user.Age = model.Age;
+                user.Gender = model.Gender;
                 db.SaveChanges();
 
                 FormsAuthentication.SetAuthCookie(model.Login, true);
 
-                user = db.Users.Where(u => u.Email == model.Email && u.Login == model.Login && u.Age == model.Age && u.Male == model.Male).FirstOrDefault();
+                user = db.Users.Where(u => u.Email == model.Email && u.Login == model.Login && u.Age == model.Age && u.Gender == model.Gender).FirstOrDefault();
 
                 if (user != null)
                 {

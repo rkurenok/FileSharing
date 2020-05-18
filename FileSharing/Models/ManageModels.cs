@@ -45,6 +45,6 @@ namespace FileSharing.Models
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Пол")]
-        public string Male { get; set; }
+        public string Gender { get; set; }
     }
 }
