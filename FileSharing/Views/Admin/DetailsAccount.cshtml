@@ -55,7 +55,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RoleId) &nbsp; &nbsp;  @Html.ActionLink("Изменить роль", "EditUserRole", new { userId = Model.Id })
+            @Html.DisplayFor(model => model.RoleId) &nbsp; &nbsp;
+            @if (Model.Login != User.Identity.Name)
+            {
+                @Html.ActionLink("Изменить роль", "EditUserRole", new { userId = Model.Id })
+            }
         </dd>
 
     </dl>
