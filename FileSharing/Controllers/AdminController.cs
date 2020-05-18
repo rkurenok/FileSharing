@@ -26,5 +26,17 @@ namespace FileSharing.Controllers
 
             return View(user);
         }
+
+        public ActionResult DeleteAccount(int userId)
+        {
+            User user = db.Users.FirstOrDefault(u => u.Id == userId);
+
+            db.Users.Remove(user);
+            db.SaveChanges();
+
+            IEnumerable<User> users = db.Users;
+
+            return View("Index", users);
+        }
     }
 }
