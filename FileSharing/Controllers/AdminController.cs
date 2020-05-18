@@ -18,5 +18,13 @@ namespace FileSharing.Controllers
 
             return View(users);
         }
+
+
+        public ActionResult DetailsAccount(int userId)
+        {
+            User user = db.Users.FirstOrDefault(u => u.Id == userId);
+
+            return View(user);
+        }
     }
 }
