@@ -50,13 +50,13 @@
             @Html.DisplayFor(model => model.Gender)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.RoleId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RoleId)
-        </dd>*@
+            @Html.DisplayFor(model => model.RoleId) &nbsp; &nbsp;  @Html.ActionLink("Изменить роль", "EditUserRole", new { userId = Model.Id })
+        </dd>
 
     </dl>
 </div>

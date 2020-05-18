@@ -206,6 +206,7 @@
     <Content Include="Views\Manage\EditAccount.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\DetailsAccount.cshtml" />
+    <Content Include="Views\Admin\EditUserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
