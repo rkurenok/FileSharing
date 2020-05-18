@@ -91,7 +91,6 @@ namespace FileSharing.Controllers
             {
                 var userName = User.Identity.Name;
                 user = db.Users.FirstOrDefault(u => u.Login == userName);
-                ViewBag.Email = user.Email;
 
                 user.Email = model.Email;
                 user.Login = model.Login;

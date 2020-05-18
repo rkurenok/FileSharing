@@ -47,4 +47,15 @@ namespace FileSharing.Models
         [Display(Name = "Пол")]
         public string Gender { get; set; }
     }
+
+    public class EditRole
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "Логин")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [Display(Name = "Роль")]
+        public int Role { get; set; }
+    }
 }
