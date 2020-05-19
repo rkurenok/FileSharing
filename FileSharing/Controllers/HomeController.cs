@@ -29,21 +29,39 @@ namespace FileSharing.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(IEnumerable<HttpPostedFileBase> uploads)
+        public ActionResult Upload(HttpPostedFileBase upload)
         {
-            foreach (var file in uploads)
+            string fileName = "";
+            if (upload != null)
             {
-                if (file != null)
+                // получаем имя файла
+                fileName = System.IO.Path.GetFileName(upload.FileName);
+                // сохраняем файл в папку Files в проекте
+                upload.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
+            }
+            int? userId = null;
+            File file = null;
+            System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
+            long size = file1.Length;
+
+            // добавляем файл в бд
+            using (UserContext db = new UserContext())
+            {
+                if (User.Identity.IsAuthenticated)
                 {
-                    // получаем имя файла
-                    string fileName = System.IO.Path.GetFileName(file.FileName);
-                    // сохраняем файл в папку Files в проекте
-                    file.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
+                    User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                    userId = user.Id;
                 }
+
+                db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId });
+                db.SaveChanges();
+
+                file = db.Files.Where(f => f.Name == fileName && f.SizeInBytes == size).FirstOrDefault();
             }
 
             return RedirectToAction("Index");
         }
+
 
         [Authorize(Roles = "admin")]
         public string About()
