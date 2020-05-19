@@ -7,7 +7,7 @@
 @ViewBag.Result
 
 <h3>Выберите файл для загрузки</h3>
-@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="upload" />
     <br>
