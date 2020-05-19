@@ -14,6 +14,7 @@ namespace FileSharing.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<File> Files { get; set; }
     }
 
     public class UserDbInitializer : DropCreateDatabaseAlways<UserContext>

@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\File.cs" />
     <Compile Include="Models\ManageModels.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\User.cs" />
@@ -215,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
