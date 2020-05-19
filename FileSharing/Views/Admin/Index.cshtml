@@ -89,6 +89,22 @@
 </div>
 <br />
 <div class="btn-group">
-     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x}))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
 </div>
 @*@Html.Partial("_PageNav", ViewData["pvm"])*@
+
+@using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        <h4>Фильтр</h4>
+        <hr />
+
+        @Html.Label("Фильтр", new { htmlAttributes = new { @class = "control-label" } })
+        @Html.DropDownList("item", ViewData["Items"] as SelectList, htmlAttributes: new { @class = "form-control" })
+        @*@Html.DisplayFor(model => model.Login)*@
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+
+}
