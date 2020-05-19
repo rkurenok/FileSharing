@@ -20,7 +20,7 @@ namespace FileSharing.Models
         public long SizeInBytes { get; set; }
         //public Stream InputStream { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User User { get; set; }
     }
 }

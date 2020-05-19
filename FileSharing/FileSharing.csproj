@@ -132,6 +132,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -158,6 +159,10 @@
     <Compile Include="Migrations\202005191250347_FileMigration.cs" />
     <Compile Include="Migrations\202005191250347_FileMigration.designer.cs">
       <DependentUpon>202005191250347_FileMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191536212_FileUserIdMigration.cs" />
+    <Compile Include="Migrations\202005191536212_FileUserIdMigration.designer.cs">
+      <DependentUpon>202005191536212_FileUserIdMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -217,6 +222,7 @@
     <Content Include="Views\Admin\DetailsAccount.cshtml" />
     <Content Include="Views\Admin\EditUserRole.cshtml" />
     <Content Include="Views\Shared\_PageNav.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -250,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005191250347_FileMigration.resx">
       <DependentUpon>202005191250347_FileMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191536212_FileUserIdMigration.resx">
+      <DependentUpon>202005191536212_FileUserIdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
