@@ -32,6 +32,13 @@ namespace FileSharing.Models
         [Display(Name = "Роль")]
         public int RoleId { get; set; }
         public Role Role { get; set; }
+
+        public ICollection<File> Files { get; set; }
+
+        public User()
+        {
+            Files = new List<File>();
+        }
     }
 
     public class Role
