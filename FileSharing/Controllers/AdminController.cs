@@ -37,7 +37,7 @@ namespace FileSharing.Controllers
             //IEnumerable<User> usersPerPage = db.Users.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             int pageSize = 3;
-            IEnumerable<User> usersPerPage = null;
+            IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             switch (item)
             {
@@ -59,9 +59,9 @@ namespace FileSharing.Controllers
                 case "RoleId":
                     usersPerPage = db.Users.OrderBy(u => u.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
                     break;
-                default:
-                    usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-                    break;
+                //default:
+                //    usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                //    break;
             }
 
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Users.Count() };
