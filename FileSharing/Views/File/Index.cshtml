@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.SizeInBytes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.User.Login)
         </th>
         <th></th>
     </tr>
@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.SizeInBytes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.User.Login)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -1,6 +1,7 @@
 ﻿using FileSharing.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,7 +20,8 @@ namespace FileSharing.Controllers
         // GET: File
         public ActionResult Index()
         {
-            IEnumerable<File> files = db.Files.ToList(); ;
+            //IEnumerable<File> files = db.Files.ToList();
+            var files = db.Files.Include(f => f.User);
 
             return View(files);
         }
@@ -36,23 +38,27 @@ namespace FileSharing.Controllers
                 upload.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
             }
             int? userId = null;
-            File file = null;
             System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
             long size = file1.Length;
+            File file = null;
 
             // добавляем файл в бд
             using (UserContext db = new UserContext())
             {
+                User user = null;
                 if (User.Identity.IsAuthenticated)
                 {
-                    User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                    user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                     userId = user.Id;
                 }
-
-                db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId });
+                file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId });
+                if (user != null)
+                {
+                    user.Files.Add(file);
+                }
                 db.SaveChanges();
 
-                file = db.Files.Where(f => f.Name == fileName && f.SizeInBytes == size).FirstOrDefault();
+                //file = db.Files.Where(f => f.Name == fileName && f.SizeInBytes == size).FirstOrDefault();
             }
 
             return RedirectToAction("Index", "Home");
