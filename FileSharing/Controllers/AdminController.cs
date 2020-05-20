@@ -1,6 +1,7 @@
 ﻿using FileSharing.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Reflection;
@@ -21,7 +22,7 @@ namespace FileSharing.Controllers
 
             string property = "";
             //User user = db.Users.FirstOrDefault(u => u.Id == id);
-            User user = new User();
+            User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
             PropertyInfo[] properties = user.GetType().GetProperties();
             foreach (PropertyInfo prop in properties)
             {
@@ -37,7 +38,8 @@ namespace FileSharing.Controllers
             //IEnumerable<User> usersPerPage = db.Users.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             int pageSize = 3;
-            IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            //IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Include(u => u.Files).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             switch (item)
             {
@@ -59,13 +61,23 @@ namespace FileSharing.Controllers
                 case "RoleId":
                     usersPerPage = db.Users.OrderBy(u => u.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
                     break;
-                //default:
-                //    usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-                //    break;
+                    //default:
+                    //    usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    //    break;
             }
 
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Users.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Users = usersPerPage };
+
+            string files_result = "";
+            IEnumerable<File> files = db.Files.Include(f => f.User);
+            foreach (var f in files)
+            {
+                files_result += f + "<br />";
+            }
+            //ViewBag.Files = files_result;
+            ViewData["files"] = files_result;
+
 
             //ViewBag.UserPerPage = usersPerPage;
             //ViewData["pvm"] = pvm;
