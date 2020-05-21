@@ -69,14 +69,9 @@ namespace FileSharing.Controllers
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Users.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Users = usersPerPage };
 
-            string files_result = "";
             IEnumerable<File> files = db.Files.Include(f => f.User);
-            foreach (var f in files)
-            {
-                files_result += f + "<br />";
-            }
-            //ViewBag.Files = files_result;
-            ViewData["files"] = files_result;
+
+            ViewBag.Files = files;
 
 
             //ViewBag.UserPerPage = usersPerPage;

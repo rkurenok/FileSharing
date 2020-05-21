@@ -76,7 +76,11 @@
                 @Html.DisplayFor(modelItem => item.RoleId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Files)
+                @foreach (var file in ViewBag.Files)
+                {
+                    @file.Name <br />
+                }
+                @*@Html.DisplayFor(modelItem => item.Files)*@
             </td>
             <td class="text-center">
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
