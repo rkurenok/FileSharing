@@ -28,7 +28,7 @@ namespace FileSharing.Controllers
 
             var userName = User.Identity.Name;
             user = db.Users.FirstOrDefault(u => u.Login == userName);
-            files = db.Files.Include(f => f.User);
+            files = db.Files.Include(f => f.User).Where(f => f.UserId == user.Id);
 
             ViewBag.Files = files;
 
