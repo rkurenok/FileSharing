@@ -1,6 +1,7 @@
 ﻿using FileSharing.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,16 +12,25 @@ namespace FileSharing.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        UserContext db = new UserContext();
         // GET: Manage
         public ActionResult Index()
         {
             User user = null;
+            IEnumerable<File> files;
 
-            using (UserContext db = new UserContext())
-            {
-                var userName = User.Identity.Name;
-                user = db.Users.FirstOrDefault(u => u.Login == userName);
-            }
+            //using (UserContext db = new UserContext())
+            //{
+            //    var userName = User.Identity.Name;
+            //    user = db.Users.FirstOrDefault(u => u.Login == userName);
+            //    files = db.Files.Include(f => f.User);
+            //}
+
+            var userName = User.Identity.Name;
+            user = db.Users.FirstOrDefault(u => u.Login == userName);
+            files = db.Files.Include(f => f.User);
+
+            ViewBag.Files = files;
 
             return View(user);
         }
