@@ -1,5 +1,6 @@
-﻿@model IEnumerable<FileSharing.Models.File>
-
+﻿@*@model IEnumerable<FileSharing.Models.File>*@
+@model FileSharing.Models.PageViewModel
+@using FileSharing.Helpers
 @{
     ViewBag.Title = "FileList";
 }
@@ -15,27 +16,31 @@
         <table class="table table-striped table-condensed table-bordered">
             <tr>
                 <th class="text-right">
-                    @Html.DisplayNameFor(model => model.Id)
+                    @*@Html.DisplayNameFor(model => model.Id)*@
+                    Id
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @*@Html.DisplayNameFor(model => model.Name)*@
+                    Название
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SizeInBytes)
+                    @*@Html.DisplayNameFor(model => model.SizeInBytes)*@
+                    Размер
                 </th>
                 <th>
                     @*@Html.DisplayNameFor(model => model.User.Login)*@
                     Автор
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Date)
+                    @*@Html.DisplayNameFor(model => model.Date)*@
+                    Дата загрузки
                 </th>
                 <th class="text-center">
                     Действия
                 </th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Files)
             {
                 <tr>
                     <td class="text-right">
@@ -48,7 +53,14 @@
                         @Html.DisplayFor(modelItem => item.SizeInBytes)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.Login)
+                        @*@Html.DisplayFor(modelItem => item.User.Login)*@
+                        @foreach (var user in ViewBag.Users)
+                        {
+                            if (user.Id == item.UserId)
+                            {
+                                @user.Login <br />
+                            }
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
@@ -68,4 +80,8 @@
 
         </table>
     </div>
+</div>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("FileList", new { page = x }))
 </div>

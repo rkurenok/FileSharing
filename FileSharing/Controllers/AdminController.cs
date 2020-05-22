@@ -201,11 +201,19 @@ namespace FileSharing.Controllers
             return result;
         }
 
-        public ActionResult FileList()
+        public ActionResult FileList(int page = 1)
         {
-            var files = db.Files.Include(f => f.User);
 
-            return View(files);
+            int pageSize = 3;
+            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Files.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
+
+            var users = db.Users;
+            ViewBag.Users = users;
+
+            return View(pvm);
         }
     }
 }
