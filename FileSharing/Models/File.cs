@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,13 @@ namespace FileSharing.Models
         //}
 
         public int Id { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Название")]
         public string Name { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Размер")]
         public long SizeInBytes { get; set; }
         //public Stream InputStream { get; set; }
 
