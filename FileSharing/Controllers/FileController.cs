@@ -43,24 +43,19 @@ namespace FileSharing.Controllers
                 File file = null;
 
                 // добавляем файл в бд
-                using (UserContext db = new UserContext())
+                User user = null;
+                if (User.Identity.IsAuthenticated)
                 {
-                    User user = null;
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
-                        userId = user.Id;
-                    }
-                    file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
-                    if (user != null)
-                    {
-                        user.Files.Add(file);
-                        user.FileId = file.Id;
-                    }
-                    db.SaveChanges();
-
-                    //file = db.Files.Where(f => f.Name == fileName && f.SizeInBytes == size).FirstOrDefault();
+                    user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                    userId = user.Id;
                 }
+                file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                if (user != null)
+                {
+                    user.Files.Add(file);
+                    //user.FileId.Add(file.Id);
+                }
+                db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Home");
@@ -80,6 +75,14 @@ namespace FileSharing.Controllers
         public ActionResult Details(int id)
         {
             File file = db.Files.Include(f => f.User).FirstOrDefault(f => f.Id == id);
+
+            string userName = User.Identity.Name;
+            User user = db.Users.FirstOrDefault(u => u.Login == userName);
+
+            if (user == null || file.User != user)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View(file);
         }
