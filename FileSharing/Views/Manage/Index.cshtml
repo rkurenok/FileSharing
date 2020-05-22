@@ -108,6 +108,7 @@
                     @*@Html.Hidden("Id", item.Id)*@
                     <input type="submit" class="btn btn-default btn-xs" value="Удалить файл" />
                 }
+                @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, null)
             </td>
         </tr>
     }
