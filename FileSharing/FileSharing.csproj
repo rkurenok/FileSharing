@@ -164,6 +164,10 @@
     <Compile Include="Migrations\202005191536212_FileUserIdMigration.designer.cs">
       <DependentUpon>202005191536212_FileUserIdMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005220853237_FileIdMigration.cs" />
+    <Compile Include="Migrations\202005220853237_FileIdMigration.designer.cs">
+      <DependentUpon>202005220853237_FileIdMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\File.cs" />
@@ -260,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005191536212_FileUserIdMigration.resx">
       <DependentUpon>202005191536212_FileUserIdMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005220853237_FileIdMigration.resx">
+      <DependentUpon>202005220853237_FileIdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
