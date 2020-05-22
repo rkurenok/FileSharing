@@ -33,6 +33,7 @@ namespace FileSharing.Models
         public int RoleId { get; set; }
         public Role Role { get; set; }
 
+        public int? FileId { get; set; }
         public ICollection<File> Files { get; set; }
 
         public User()

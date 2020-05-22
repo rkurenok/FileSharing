@@ -27,6 +27,10 @@ namespace FileSharing.Models
         public long SizeInBytes { get; set; }
         //public Stream InputStream { get; set; }
 
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Дата и время загрузки")]
+        public DateTime Date { get; set; }
+
         public int? UserId { get; set; }
         public User User { get; set; }
     }

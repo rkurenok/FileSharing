@@ -51,10 +51,11 @@ namespace FileSharing.Controllers
                         user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                         userId = user.Id;
                     }
-                    file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId });
+                    file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
                     if (user != null)
                     {
                         user.Files.Add(file);
+                        user.FileId = file.Id;
                     }
                     db.SaveChanges();
 
