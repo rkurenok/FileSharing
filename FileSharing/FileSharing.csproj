@@ -219,7 +219,7 @@
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\EditAccount.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\DetailsAccount.cshtml" />
+    <Content Include="Views\Admin\AccountDetails.cshtml" />
     <Content Include="Views\Admin\EditUserRole.cshtml" />
     <Content Include="Views\Shared\_PageNav.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
