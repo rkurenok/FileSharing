@@ -47,7 +47,8 @@
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @*@Html.DisplayFor(modelItem => item.Name)*@
+                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, null)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.SizeInBytes)
@@ -66,14 +67,14 @@
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
                     <td class="text-center">
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                        @using (Html.BeginForm("Delete", "File", new { fileId = item.Id }))
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                            @Html.ActionLink("Delete", "Delete", "File", new { id = item.Id }, null)
+                        @*@using (Html.BeginForm("Delete", "File", new { fileId = item.Id }))
                         {
                             @Html.Hidden("Id", item.Id)
                             <input type="submit" class="btn btn-default btn-xs" value="Удалить файл" />
-                        }
+                        }*@
                     </td>
                 </tr>
             }
