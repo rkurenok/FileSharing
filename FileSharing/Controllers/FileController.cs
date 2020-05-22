@@ -75,5 +75,12 @@ namespace FileSharing.Controllers
 
             return View("Index", files);
         }
+
+        public ActionResult Details(int id)
+        {
+            File file = db.Files.Include(f => f.User).FirstOrDefault(f => f.Id == id);
+
+            return View(file);
+        }
     }
 }

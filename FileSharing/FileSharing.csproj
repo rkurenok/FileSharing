@@ -223,6 +223,7 @@
     <Content Include="Views\Admin\EditUserRole.cshtml" />
     <Content Include="Views\Shared\_PageNav.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\File\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
