@@ -19,6 +19,7 @@ namespace FileSharing.Models
     public class PageViewModel
     {
         public IEnumerable<User> Users { get; set; }
+        public IEnumerable<File> Files { get; set; }
         public PageInfo PageInfo { get; set; }
     }
 }
