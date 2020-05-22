@@ -38,6 +38,7 @@
     </dl>
 </div>
 <p>
+    @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }) |
     @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
