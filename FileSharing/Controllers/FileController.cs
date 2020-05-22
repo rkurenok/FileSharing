@@ -63,6 +63,12 @@ namespace FileSharing.Controllers
         public ActionResult Delete(int fileId)
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            string fileName = file.Name;
+            string fullPath = Request.MapPath("~/Content/Files/" + fileName);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
             db.Files.Remove(file);
             db.SaveChanges();
 
