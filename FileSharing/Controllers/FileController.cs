@@ -53,7 +53,6 @@ namespace FileSharing.Controllers
                 if (user != null)
                 {
                     user.Files.Add(file);
-                    //user.FileId.Add(file.Id);
                 }
                 db.SaveChanges();
             }
