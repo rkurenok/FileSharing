@@ -200,5 +200,12 @@ namespace FileSharing.Controllers
             SelectList items = new SelectList(new List<string>(masProperty));
             return result;
         }
+
+        public ActionResult FileList()
+        {
+            var files = db.Files.Include(f => f.User);
+
+            return View(files);
+        }
     }
 }
