@@ -78,7 +78,10 @@
             <td>
                 @foreach (var file in ViewBag.Files)
                 {
-                    @file.Name <br />
+                    if (file.UserId == item.Id)
+                    {
+                        @file.Name <br />
+                    }
                 }
                 @*@Html.DisplayFor(modelItem => item.Files)*@
             </td>
