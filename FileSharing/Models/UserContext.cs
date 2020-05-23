@@ -15,6 +15,8 @@ namespace FileSharing.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<File> Files { get; set; }
+
+        public DbSet<FileAccess> FileAccesses { get; set; }
     }
 
     public class UserDbInitializer : DropCreateDatabaseAlways<UserContext>
@@ -34,6 +36,9 @@ namespace FileSharing.Models
                 Gender = "Мужской",
                 RoleId = 1
             });
+
+            db.FileAccesses.Add(new FileAccess { Id = 1, Name = "private" });
+            db.FileAccesses.Add(new FileAccess { Id = 2, Name = "public" });
 
             base.Seed(db);
         }
