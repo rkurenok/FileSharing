@@ -97,12 +97,10 @@ namespace FileSharing.Controllers
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
             // Имя файла (необязательно)
             string fileName = file.Name;
-            //string fileName = "Test.html";
             // Путь к файлу
             string file_path = Server.MapPath("~/Content/Files/" + fileName);
-            //string file_path = Server.MapPath("~/Content/Files/Test.html");
             // Тип файла - content-type
-            string file_type = "text/html";
+            string file_type = "application/octet-stream";
             return File(file_path, file_type, fileName);
         }
     }
