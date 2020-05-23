@@ -50,8 +50,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-                        <td>
-                @Html.DisplayFor(modelItem => item.AccessId)
+            <td>
+                @(item.AccessId == 1 ? "private" : "public")
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
