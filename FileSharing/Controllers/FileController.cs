@@ -22,6 +22,7 @@ namespace FileSharing.Controllers
         {
             //IEnumerable<File> files = db.Files.ToList();
             var files = db.Files.Include(f => f.User);
+            ViewBag.FileAccess = db.FileAccesses;
 
             return View(files);
         }
