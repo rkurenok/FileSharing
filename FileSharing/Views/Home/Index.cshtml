@@ -9,7 +9,7 @@
 <h3>Выберите файл для загрузки</h3>
 @using (Html.BeginForm("Upload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="upload" />
+    <input type="file" name="uploads" multiple>
     <br>
     if (User.Identity.IsAuthenticated)
     {

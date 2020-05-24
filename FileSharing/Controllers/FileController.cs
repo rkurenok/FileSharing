@@ -28,42 +28,77 @@ namespace FileSharing.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase upload, string access)
+        public ActionResult Upload(HttpPostedFileBase[] uploads, string access)
         {
             string fileName = "";
-            if (upload != null)
+            if (uploads != null)
             {
-                // получаем имя файла
-                fileName = System.IO.Path.GetFileName(upload.FileName);
-                // сохраняем файл в папку Files в проекте
-                upload.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
+                foreach (HttpPostedFileBase uploadFile in uploads)
+                {
+                    // получаем имя файла
+                    fileName = System.IO.Path.GetFileName(uploadFile.FileName);
+                    // сохраняем файл в папку Files в проекте
+                    uploadFile.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
 
-                int? userId = null;
-                System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
-                long size = file1.Length;
-                File file = null;
+                    int? userId = null;
+                    System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
+                    long size = file1.Length;
+                    File file = null;
 
-                // добавляем файл в бд
-                User user = null;
-                if (User.Identity.IsAuthenticated)
-                {
-                    user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
-                    userId = user.Id;
-                }
-                file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
-                if (access == "private")
-                {
-                    file.AccessId = 1;
-                }
-                else
-                {
-                    file.AccessId = 2;
-                }
-                if (user != null)
-                {
-                    user.Files.Add(file);
+                    // добавляем файл в бд
+                    User user = null;
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                        userId = user.Id;
+                    }
+                    file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                    if (access == "private")
+                    {
+                        file.AccessId = 1;
+                    }
+                    else
+                    {
+                        file.AccessId = 2;
+                    }
+                    if (user != null)
+                    {
+                        user.Files.Add(file);
+                    }
+                    //db.SaveChanges();
                 }
                 db.SaveChanges();
+                // получаем имя файла
+                //fileName = System.IO.Path.GetFileName(upload.FileName);
+                //// сохраняем файл в папку Files в проекте
+                //upload.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
+
+                //int? userId = null;
+                //System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
+                //long size = file1.Length;
+                //File file = null;
+
+                //// добавляем файл в бд
+                //User user = null;
+                //if (User.Identity.IsAuthenticated)
+                //{
+                //    user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                //    userId = user.Id;
+                //}
+                //file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                //if (access == "private")
+                //{
+                //    file.AccessId = 1;
+                //}
+                //else
+                //{
+                //    file.AccessId = 2;
+                //}
+                //if (user != null)
+                //{
+                //    user.Files.Add(file);
+                //}
+                //db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Home");
