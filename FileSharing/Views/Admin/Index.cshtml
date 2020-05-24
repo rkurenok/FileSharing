@@ -100,10 +100,13 @@
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                        @using (Html.BeginForm("DeleteAccount", "Admin", new { userId = item.Id }))
+                        @if (User.Identity.Name != item.Login)
                         {
-                            @Html.Hidden("Id", item.Id)
-                            <input type="submit" class="btn btn-default btn-xs" value="Удалить" />
+                            using (Html.BeginForm("DeleteAccount", "Admin", new { userId = item.Id }))
+                            {
+                                @Html.Hidden("Id", item.Id)
+                                <input type="submit" class="btn btn-default btn-xs" value="Удалить" />
+                            }
                         }
                     </td>
                 </tr>
