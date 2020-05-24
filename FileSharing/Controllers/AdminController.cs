@@ -134,7 +134,7 @@ namespace FileSharing.Controllers
         //}
 
 
-        public ActionResult AccountDetails(int userId)
+        public ActionResult AccountDetails(int? userId)
         {
             User user = db.Users.FirstOrDefault(u => u.Id == userId);
 

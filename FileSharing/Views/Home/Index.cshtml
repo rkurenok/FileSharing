@@ -11,5 +11,48 @@
 {
     <input type="file" name="upload" />
     <br>
+    if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <div>
+                Доступ к файлу
+            </div>
+            <div id="access">
+                @*@Html.Label("Access", "Открытый")*@
+                Закрытый
+                @Html.RadioButton("access", "private", true) &nbsp;
+                Открытый
+                @Html.RadioButton("access", "public")
+            </div>
+        </div>
+        <br />
+    }
+    else
+    {
+        <div id="access" style="display: none">
+            <div>
+                Доступ к файлу
+            </div>
+            <div>
+                @*@Html.Label("Access", "Открытый")*@
+                Закрытый
+                @Html.RadioButton("access", "private", true) &nbsp;
+                Открытый
+                @Html.RadioButton("access", "public")
+            </div>
+        </div>
+
+    }
     <input type="submit" value="Загрузить" />
+}
+
+@section scripts {
+    <script type="text/javascript">
+        @*var access = document.getElementById("access");
+        access.hidden = true;
+        if (@User.Identity.IsAuthenticated) {
+            //access.style.display = "block";
+            access.hidden = false;
+        }*@
+    </script>
 }
