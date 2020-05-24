@@ -35,6 +35,15 @@
             @Html.DisplayFor(model => model.User.Login)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessId)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.SizeInBytes)*@
+            @(Model.AccessId == 1 ? "private" : "public")
+        </dd>
+
     </dl>
 </div>
 <p>

@@ -84,7 +84,7 @@ namespace FileSharing.Controllers
 
             string userName = User.Identity.Name;
             User user = db.Users.FirstOrDefault(u => u.Login == userName);
-
+            bool admin = User.IsInRole("admin");
             if (user == null || file.User != user && !User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");

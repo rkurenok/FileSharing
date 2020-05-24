@@ -82,6 +82,10 @@
             @*@Html.DisplayNameFor(model => model.User.Login)*@
             Автор
         </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.User.Login)*@
+            Доступ к файлу
+        </th>
         <th></th>
     </tr>
 
@@ -99,6 +103,10 @@
             <td>
                 @*@Html.DisplayFor(modelItem => item.User.Login)*@
                 @item.User.Login
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.User.Login)*@
+                @(item.AccessId == 1 ? "private" : "public")
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
