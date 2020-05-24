@@ -125,11 +125,18 @@ namespace FileSharing.Controllers
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
             User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
-            EditFile editFile = new EditFile { Id = file.Id, Name = file.Name, AccessId = file.AccessId };
-
             if (user == null || file.User != user)
             {
                 return RedirectToAction("Index", "Home");
+            }
+            EditFile editFile = new EditFile { Id = file.Id, Name = file.Name, AccessId = file.AccessId };
+            if (file.AccessId == 1)
+            {
+                ViewBag.Access = "private";
+            }
+            else
+            {
+                ViewBag.Access = "public";
             }
             ViewBag.Name = file.Name;
             ViewBag.AccessId = file.AccessId;
