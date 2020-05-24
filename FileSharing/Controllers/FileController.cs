@@ -21,14 +21,14 @@ namespace FileSharing.Controllers
         public ActionResult Index()
         {
             //IEnumerable<File> files = db.Files.ToList();
-            var files = db.Files.Include(f => f.User);
+            var files = db.Files.Include(f => f.User).Where(f => f.AccessId == 2);
             ViewBag.FileAccess = db.FileAccesses;
 
             return View(files);
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase upload)
+        public ActionResult Upload(HttpPostedFileBase upload, string access)
         {
             string fileName = "";
             if (upload != null)
@@ -50,7 +50,15 @@ namespace FileSharing.Controllers
                     user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                     userId = user.Id;
                 }
-                file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now, AccessId = 1 });
+                file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                if (access == "private")
+                {
+                    file.AccessId = 1;
+                }
+                else
+                {
+                    file.AccessId = 2;
+                }
                 if (user != null)
                 {
                     user.Files.Add(file);

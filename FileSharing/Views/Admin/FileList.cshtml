@@ -61,16 +61,15 @@
                         @*@Html.DisplayFor(modelItem => item.User.Login)*@
                         @{
                             string login = "";
-                            int userId;
                             foreach (var user in ViewBag.Users)
                             {
                                 if (user.Id == item.UserId)
                                 {
                                     login = user.Login;
+                                    @Html.ActionLink(login, "AccountDetails", new { userId = item.UserId })
                                 }
                             }
                         }
-                        @Html.ActionLink(login, "AccountDetails", new { userId = item.UserId })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
