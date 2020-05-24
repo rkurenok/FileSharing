@@ -21,6 +21,7 @@ namespace FileSharing.Models
         [DataType(DataType.Text)]
         [Display(Name = "Название")]
         public string Name { get; set; }
+        public string OriginalName { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name = "Размер")]
