@@ -124,7 +124,7 @@ namespace FileSharing.Controllers
 
             IEnumerable<File> files = db.Files.ToList();
 
-            return RedirectToAction("FileList", "Admin", files);
+            return RedirectToAction("Index", "Manage", files);
         }
 
         public ActionResult Details(int id)
