@@ -14,7 +14,7 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
         // GET: Manage
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             User user = null;
             IEnumerable<File> files;
@@ -29,10 +29,16 @@ namespace FileSharing.Controllers
             var userName = User.Identity.Name;
             user = db.Users.FirstOrDefault(u => u.Login == userName);
             files = db.Files.Include(f => f.User).Where(f => f.UserId == user.Id);
-
+            ViewBag.User = user;
             ViewBag.Files = files;
 
-            return View(user);
+            int pageSize = 3;
+            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.UserId == user.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
+
+            return View(pvm);
         }
 
         public ActionResult ChangePassword()
