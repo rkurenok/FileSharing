@@ -58,4 +58,18 @@ namespace FileSharing.Models
         [Display(Name = "Роль")]
         public int Role { get; set; }
     }
+
+    public class EditFile
+    {
+        public int Id { get; set; }
+
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [Display(Name = "Название")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [Display(Name = "Доступ к файлу")]
+        public int AccessId { get; set; }
+    }
 }
