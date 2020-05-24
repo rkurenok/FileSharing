@@ -23,7 +23,27 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SizeInBytes)
+            @*@Html.DisplayFor(model => model.SizeInBytes)*@
+            @{
+                string size = string.Format("{0} Б", Model.SizeInBytes);
+                double sizeInKBytes, sizeInMBytes, sizeInGBytes;
+                if (Model.SizeInBytes >= 1024)
+                {
+                    sizeInKBytes = (double)Model.SizeInBytes / 1024;
+                    size = string.Format("{0:N2} КБ", sizeInKBytes);
+                    if (sizeInKBytes >= 1024)
+                    {
+                        sizeInMBytes = (double)sizeInKBytes / 1024;
+                        size = string.Format("{0:N2} МБ", sizeInMBytes);
+                        if (sizeInMBytes >= 1024)
+                        {
+                            sizeInGBytes = (double)sizeInMBytes / 1024;
+                            size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                        }
+                    }
+                }
+            }
+            @size
         </dd>
 
         <dt>
