@@ -35,6 +35,10 @@
                     @*@Html.DisplayNameFor(model => model.Date)*@
                     Дата загрузки
                 </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Date)*@
+                    Доступ к файлу
+                </th>
                 <th class="text-center">
                     Действия
                 </th>
@@ -55,26 +59,34 @@
                     </td>
                     <td>
                         @*@Html.DisplayFor(modelItem => item.User.Login)*@
-                        @foreach (var user in ViewBag.Users)
-                        {
-                            if (user.Id == item.UserId)
+                        @{
+                            string login = "";
+                            int userId;
+                            foreach (var user in ViewBag.Users)
                             {
-                                @user.Login <br />
+                                if (user.Id == item.UserId)
+                                {
+                                    login = user.Login;
+                                }
                             }
                         }
+                        @Html.ActionLink(login, "AccountDetails", new { userId = item.UserId })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
+                    <td>
+                        @(item.AccessId == 1 ? "private" : "public")
+                    </td>
                     <td class="text-center">
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })
                             @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
-                            @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
+                        @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
                         @*@using (Html.BeginForm("Delete", "File", new { fileId = item.Id }))
-                        {
-                            @Html.Hidden("Id", item.Id)
-                            <input type="submit" class="btn btn-default btn-xs" value="Удалить файл" />
-                        }*@
+                            {
+                                @Html.Hidden("Id", item.Id)
+                                <input type="submit" class="btn btn-default btn-xs" value="Удалить файл" />
+                            }*@
                     </td>
                 </tr>
             }

@@ -77,11 +77,23 @@
                         @Html.DisplayFor(modelItem => item.RoleId)
                     </td>
                     <td>
+                        @{
+                            string fileName = "";
+                            foreach (var file in ViewBag.Files)
+                            {
+                                if (file.UserId == item.Id)
+                                {
+                                    fileName = file.Name;
+                                }
+                            }
+                        }
                         @foreach (var file in ViewBag.Files)
                         {
                             if (file.UserId == item.Id)
                             {
-                                @file.Name <br />
+                                @*fileName = file.Name < br />*@
+                                @Html.ActionLink(fileName, "Details", "File", new { id = file.Id }, null)
+                                <br />
                             }
                         }
                     </td>

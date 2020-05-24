@@ -138,6 +138,12 @@ namespace FileSharing.Controllers
         {
             User user = db.Users.FirstOrDefault(u => u.Id == userId);
 
+            IEnumerable<File> files;
+
+            files = db.Files.Include(f => f.User).Where(f => f.UserId == user.Id);
+
+            ViewBag.Files = files;
+
             return View(user);
         }
 
