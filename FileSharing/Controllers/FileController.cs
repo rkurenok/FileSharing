@@ -50,7 +50,7 @@ namespace FileSharing.Controllers
                     user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                     userId = user.Id;
                 }
-                file = db.Files.Add(new File { Name = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
                 if (access == "private")
                 {
                     file.AccessId = 1;
@@ -72,7 +72,7 @@ namespace FileSharing.Controllers
         public ActionResult Delete(int fileId)
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
-            string fileName = file.Name;
+            string fileName = file.OriginalName;
             string fullPath = Request.MapPath("~/Content/Files/" + fileName);
             if (System.IO.File.Exists(fullPath))
             {
@@ -105,7 +105,7 @@ namespace FileSharing.Controllers
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
             // Имя файла (необязательно)
-            string fileName = file.Name;
+            string fileName = file.OriginalName;
             // Путь к файлу
             string file_path = Server.MapPath("~/Content/Files/" + fileName);
             // Тип файла - content-type
