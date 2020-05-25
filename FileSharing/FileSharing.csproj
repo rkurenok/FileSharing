@@ -180,6 +180,18 @@
     <Compile Include="Migrations\202005241027260_OriginalFileNameMigration.designer.cs">
       <DependentUpon>202005241027260_OriginalFileNameMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005251811330_FileRetentionPeriodMigration.cs" />
+    <Compile Include="Migrations\202005251811330_FileRetentionPeriodMigration.designer.cs">
+      <DependentUpon>202005251811330_FileRetentionPeriodMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005251814182_FileRetentionPeriodNullMigration.cs" />
+    <Compile Include="Migrations\202005251814182_FileRetentionPeriodNullMigration.designer.cs">
+      <DependentUpon>202005251814182_FileRetentionPeriodNullMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005251852368_FileRetentionPeriodNotNullMigration.cs" />
+    <Compile Include="Migrations\202005251852368_FileRetentionPeriodNotNullMigration.designer.cs">
+      <DependentUpon>202005251852368_FileRetentionPeriodNotNullMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\File.cs" />
@@ -290,6 +302,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005241027260_OriginalFileNameMigration.resx">
       <DependentUpon>202005241027260_OriginalFileNameMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005251811330_FileRetentionPeriodMigration.resx">
+      <DependentUpon>202005251811330_FileRetentionPeriodMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005251814182_FileRetentionPeriodNullMigration.resx">
+      <DependentUpon>202005251814182_FileRetentionPeriodNullMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005251852368_FileRetentionPeriodNotNullMigration.resx">
+      <DependentUpon>202005251852368_FileRetentionPeriodNotNullMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

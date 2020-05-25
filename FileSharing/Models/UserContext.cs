@@ -17,6 +17,7 @@ namespace FileSharing.Models
         public DbSet<File> Files { get; set; }
 
         public DbSet<FileAccess> FileAccesses { get; set; }
+        public DbSet<FileRetentionPeriod> FileRetentionPeriods { get; set; }
     }
 
     public class UserDbInitializer : DropCreateDatabaseAlways<UserContext>
@@ -39,6 +40,10 @@ namespace FileSharing.Models
 
             db.FileAccesses.Add(new FileAccess { Id = 1, Name = "private" });
             db.FileAccesses.Add(new FileAccess { Id = 2, Name = "public" });
+
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 1, Value = 10 });
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 2, Value = 30 });
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 3, Value = 60 });
 
             base.Seed(db);
         }

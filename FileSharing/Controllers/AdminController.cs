@@ -144,6 +144,17 @@ namespace FileSharing.Controllers
 
             ViewBag.Files = files;
 
+            //foreach (File file in files)
+            //{
+            //    FileRetentionPeriod fileRetentionPeriod = null;
+            //    fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+            //    DateTime creation = file.Date;
+            //    if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+            //    {
+            //        return RedirectToAction("Delete", "File", new { fileId = file.Id });
+            //    }
+            //}
+
             return View(user);
         }
 
@@ -218,6 +229,18 @@ namespace FileSharing.Controllers
 
             var users = db.Users;
             ViewBag.Users = users;
+
+            IEnumerable<File> files = db.Files;
+            foreach (File file in files)
+            {
+                FileRetentionPeriod fileRetentionPeriod = null;
+                fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+                DateTime creation = file.Date;
+                if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+                {
+                    return RedirectToAction("Delete", "File", new { fileId = file.Id });
+                }
+            }
 
             return View(pvm);
         }

@@ -30,14 +30,25 @@ namespace FileSharing.Controllers
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
 
+            foreach (File file in files)
+            {
+                FileRetentionPeriod fileRetentionPeriod = null;
+                fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+                DateTime creation = file.Date;
+                if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+                {
+                    return RedirectToAction("Delete", "File", new { fileId = file.Id });
+                }
+            }
+
             return View(pvm);
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase[] uploads, string access)
+        public ActionResult Upload(HttpPostedFileBase[] uploads, string access, int retentionPeriodId)
         {
             string fileName = "";
-            if (uploads != null)
+            if (uploads[0] != null)
             {
                 foreach (HttpPostedFileBase uploadFile in uploads)
                 {
@@ -58,7 +69,7 @@ namespace FileSharing.Controllers
                         user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                         userId = user.Id;
                     }
-                    file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
+                    file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now, FileRententionPeriodId = retentionPeriodId });
                     if (access == "private")
                     {
                         file.AccessId = 1;
@@ -106,7 +117,6 @@ namespace FileSharing.Controllers
                 //}
                 //db.SaveChanges();
             }
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -119,12 +129,21 @@ namespace FileSharing.Controllers
             {
                 System.IO.File.Delete(fullPath);
             }
+            object routeValues = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+                if (file.UserId == user.Id)
+                {
+                    routeValues = new { message = ManageMessageId.DeleteFileDate, fileName };
+                }
+            }
             db.Files.Remove(file);
             db.SaveChanges();
 
             IEnumerable<File> files = db.Files.ToList();
 
-            return RedirectToAction("Index", "Manage", files);
+            return RedirectToAction("Index", "Manage", routeValues);
         }
 
         public ActionResult Details(int id)
@@ -139,6 +158,14 @@ namespace FileSharing.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            FileRetentionPeriod fileRetentionPeriod = null;
+            fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+            DateTime creation = file.Date;
+            if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+            {
+                return RedirectToAction("Delete", "File", new { fileId = file.Id });
+            }
+
             return View(file);
         }
 
@@ -151,7 +178,25 @@ namespace FileSharing.Controllers
             string file_path = Server.MapPath("~/Content/Files/" + fileName);
             // Тип файла - content-type
             string file_type = "application/octet-stream";
+
+            //foreach (File file in files)
+            //{
+            //    FileRetentionPeriod fileRetentionPeriod = null;
+            //    fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+            //    DateTime creation = file.Date;
+            //    if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+            //    {
+            //        return RedirectToAction("Delete", "File", new { fileId = file.Id });
+            //    }
+            //}
+
             return File(file_path, file_type, fileName);
         }
+    }
+
+    public enum ManageMessageId
+    {
+        DeleteFileDate,
+        Error
     }
 }
