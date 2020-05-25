@@ -9,8 +9,12 @@ namespace FileSharing.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(FileMessageId? fileMessage, AccountMessageId? accountMessage, string name)
         {
+            ViewBag.StatusMessage =
+                accountMessage == AccountMessageId.RegisterAccount ? "Ваш профиль " + name + " успешно создан" 
+                : fileMessage == FileMessageId.UploadFile ? "Файлы были успешно загружены" 
+                : "";
             string result = "Вы не авторизованы";
 
             if (User.Identity.IsAuthenticated)
@@ -23,8 +27,6 @@ namespace FileSharing.Controllers
             return View();
         }
 
-
-        [Authorize(Roles = "admin")]
         public string About()
         {
             ViewBag.Message = "Your application description page.";

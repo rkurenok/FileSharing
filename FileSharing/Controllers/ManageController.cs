@@ -14,10 +14,12 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
         // GET: Manage
-        public ActionResult Index(ManageMessageId? message, string fileName, int page = 1)
+        public ActionResult Index(ManageMessageId? manageMessage, FileMessageId? fileMessage, string fileName, int page = 1)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.DeleteFileDate ? "Ваш файл " + fileName + " был удален" 
+                fileMessage == FileMessageId.DeleteFile ? "Ваш файл " + fileName + " был удален" 
+                : manageMessage == ManageMessageId.ChangePassword ? "Ваш пароль был успешно изменен" 
+                : manageMessage == ManageMessageId.EditAccount ? "Изменения сохранены"
                 : "";
 
             User user = null;
@@ -85,7 +87,7 @@ namespace FileSharing.Controllers
 
                     if (user != null)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", new { manageMessage = ManageMessageId.ChangePassword });
                     }
                 }
             }
@@ -136,7 +138,7 @@ namespace FileSharing.Controllers
 
                 if (user != null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { manageMessage = ManageMessageId.EditAccount });
                 }
             }
             return View(model);
@@ -183,10 +185,17 @@ namespace FileSharing.Controllers
 
             if (file != null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { manageMessage = ManageMessageId.EditAccount });
             }
             
             return View(model);
         }
+    }
+
+    public enum ManageMessageId
+    {
+        ChangePassword,
+        EditAccount,
+        Error
     }
 }
