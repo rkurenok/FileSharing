@@ -37,11 +37,20 @@ namespace FileSharing.Models
 
         public int AccessId { get; set; }
         public FileAccess Access { get; set; }
+
+        public int FileRententionPeriodId { get; set; }
+        public FileRetentionPeriod FileRetentionPeriod { get; set; }
     }
 
     public class FileAccess
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class FileRetentionPeriod
+    {
+        public int Id { get; set; }
+        public int Value { get; set; }
     }
 }

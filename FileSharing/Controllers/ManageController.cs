@@ -14,8 +14,12 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
         // GET: Manage
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(ManageMessageId? message, string fileName, int page = 1)
         {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.DeleteFileDate ? "Ваш файл " + fileName + " был удален" 
+                : "";
+
             User user = null;
             IEnumerable<File> files;
 
@@ -37,6 +41,17 @@ namespace FileSharing.Controllers
 
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
+
+            foreach (File file in files)
+            {
+                FileRetentionPeriod fileRetentionPeriod = null;
+                fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
+                DateTime creation = file.Date;
+                if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+                {
+                    return RedirectToAction("Delete", "File", new { fileId = file.Id });
+                }
+            }
 
             return View(pvm);
         }
