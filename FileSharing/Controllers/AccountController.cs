@@ -72,7 +72,7 @@ namespace FileSharing.Controllers
                     if (user != null)
                     {
                         FormsAuthentication.SetAuthCookie(model.Login, true);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { accountMessage = AccountMessageId.RegisterAccount, name = user.Login });
                     }
                 }
                 else
@@ -91,5 +91,11 @@ namespace FileSharing.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+    }
+
+    public enum AccountMessageId
+    {
+        RegisterAccount,
+        Error
     }
 }

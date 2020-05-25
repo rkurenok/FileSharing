@@ -16,8 +16,12 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
         // GET: Admin
-        public ActionResult Index(string item, int page = 1)
+        public ActionResult Index(string item, AdminMessageId? adminMessage, string userName, int page = 1)
         {
+            ViewBag.StatusMessage =
+                adminMessage == AdminMessageId.DeleteAccount ? "Пользователь " + userName + " был удален"
+                : adminMessage == AdminMessageId.EditUserRole ? "Роль пользователя " + userName + " была изменена" 
+                : "";
             //IEnumerable<User> users = db.Users;
 
             string property = "";
@@ -161,13 +165,13 @@ namespace FileSharing.Controllers
         public ActionResult DeleteAccount(int userId)
         {
             User user = db.Users.FirstOrDefault(u => u.Id == userId);
-
+            //object routeValues = null;
             db.Users.Remove(user);
             db.SaveChanges();
 
             IEnumerable<User> users = db.Users;
 
-            return View("Index", users);
+            return RedirectToAction("Index", "Admin", new {users, adminMessage = AdminMessageId.DeleteAccount, userName = user.Login});
         }
 
         public ActionResult EditUserRole(int userId)
@@ -196,7 +200,7 @@ namespace FileSharing.Controllers
 
             if (user != null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { adminMessage = AdminMessageId.EditUserRole, userName = user.Login });
             }
             return View(model);
         }
@@ -218,9 +222,10 @@ namespace FileSharing.Controllers
             return result;
         }
 
-        public ActionResult FileList(int page = 1)
+        public ActionResult FileList(FileMessageId? fileMessage, string fileName, int page = 1)
         {
-
+            ViewBag.StatusMessage = fileMessage == FileMessageId.DeleteFile ? "Файл " + fileName + " был удален"
+                : "";
             int pageSize = 3;
             IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -244,5 +249,12 @@ namespace FileSharing.Controllers
 
             return View(pvm);
         }
+    }
+
+    public enum AdminMessageId
+    {
+        EditUserRole,
+        DeleteAccount,
+        Error
     }
 }

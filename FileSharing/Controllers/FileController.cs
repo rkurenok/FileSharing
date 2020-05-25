@@ -48,6 +48,7 @@ namespace FileSharing.Controllers
         public ActionResult Upload(HttpPostedFileBase[] uploads, string access, int retentionPeriodId)
         {
             string fileName = "";
+            object routeValues = null;
             if (uploads[0] != null)
             {
                 foreach (HttpPostedFileBase uploadFile in uploads)
@@ -85,6 +86,7 @@ namespace FileSharing.Controllers
                     //db.SaveChanges();
                 }
                 db.SaveChanges();
+                routeValues = new { fileMessage = FileMessageId.UploadFile };
                 // получаем имя файла
                 //fileName = System.IO.Path.GetFileName(upload.FileName);
                 //// сохраняем файл в папку Files в проекте
@@ -117,7 +119,7 @@ namespace FileSharing.Controllers
                 //}
                 //db.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", routeValues);
         }
 
         public ActionResult Delete(int fileId, int? page)
@@ -135,13 +137,19 @@ namespace FileSharing.Controllers
                 User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
                 if (file.UserId == user.Id)
                 {
-                    routeValues = new { message = ManageMessageId.DeleteFileDate, fileName };
+                    routeValues = new { fileMessage = FileMessageId.DeleteFile, fileName };
                 }
             }
             db.Files.Remove(file);
             db.SaveChanges();
 
             IEnumerable<File> files = db.Files.ToList();
+            User user1 = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+            if (user1.Id != file.UserId)
+            {
+                routeValues = new { fileMessage = FileMessageId.DeleteFile, fileName };
+                return RedirectToAction("FileList", "Admin", routeValues);
+            }
 
             return RedirectToAction("Index", "Manage", routeValues);
         }
@@ -194,9 +202,10 @@ namespace FileSharing.Controllers
         }
     }
 
-    public enum ManageMessageId
+    public enum FileMessageId
     {
-        DeleteFileDate,
+        DeleteFile,
+        UploadFile,
         Error
     }
 }
