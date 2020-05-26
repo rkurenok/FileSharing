@@ -162,6 +162,8 @@ namespace FileSharing.Controllers
                     routeValues = new { fileMessage = FileMessageId.DeleteFile, fileName };
                 }
             }
+            FileUniqueKey fileUniqueKey =  db.FileUniqueKeys.FirstOrDefault(k => k.FileId == file.Id);
+            db.FileUniqueKeys.Remove(fileUniqueKey);
             db.Files.Remove(file);
             db.SaveChanges();
 
