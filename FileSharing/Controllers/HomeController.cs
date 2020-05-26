@@ -9,11 +9,13 @@ namespace FileSharing.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(FileMessageId? fileMessage, AccountMessageId? accountMessage, string name)
+        UserContext db = new UserContext();
+        public ActionResult Index(FileMessageId? fileMessage, AccountMessageId? accountMessage, string name, int? fileId)
         {
             ViewBag.StatusMessage =
                 accountMessage == AccountMessageId.RegisterAccount ? "Ваш профиль " + name + " успешно создан" 
                 : fileMessage == FileMessageId.UploadFile ? "Файлы были успешно загружены" 
+                : fileMessage == FileMessageId.FileDownload ? "Файл больше недоступен или же никогда не существовал"
                 : "";
             string result = "Вы не авторизованы";
 
@@ -23,6 +25,12 @@ namespace FileSharing.Controllers
             }
 
             ViewBag.Result = result;
+
+            File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            ViewBag.File = file;
+
+            IEnumerable<FileUniqueKey> uniqueKeys = db.FileUniqueKeys;
+            ViewBag.FileUniqueKeys = uniqueKeys;
 
             return View();
         }
