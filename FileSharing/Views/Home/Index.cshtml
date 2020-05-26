@@ -9,10 +9,10 @@
 <h3>Выберите файл для загрузки</h3>
 @using (Html.BeginForm("Upload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="uploads" multiple>
-    <br>
     if (User.Identity.IsAuthenticated)
     {
+        <input type="file" name="uploads" multiple>
+        <br>
         <div>
             <div>
                 Доступ к файлу
@@ -39,6 +39,8 @@
     }
     else
     {
+        <input type="file" name="uploads">
+        <br>
         <div id="access" style="display: none">
             <div>
                 Доступ к файлу
