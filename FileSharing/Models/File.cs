@@ -40,6 +40,9 @@ namespace FileSharing.Models
 
         public int FileRententionPeriodId { get; set; }
         public FileRetentionPeriod FileRetentionPeriod { get; set; }
+
+        public int? FileUniqueKeyId { get; set; }
+        public FileUniqueKey FileUniqueKey { get; set; }
     }
 
     public class FileAccess
@@ -52,5 +55,12 @@ namespace FileSharing.Models
     {
         public int Id { get; set; }
         public int Value { get; set; }
+    }
+
+    public class FileUniqueKey
+    {
+        public int Id { get; set; }
+        public string UniqueKey { get; set; }
+        public int FileId { get; set; }
     }
 }

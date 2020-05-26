@@ -192,8 +192,21 @@
     <Compile Include="Migrations\202005251852368_FileRetentionPeriodNotNullMigration.designer.cs">
       <DependentUpon>202005251852368_FileRetentionPeriodNotNullMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005261123367_FileUniqueKeyMigration.cs" />
+    <Compile Include="Migrations\202005261123367_FileUniqueKeyMigration.designer.cs">
+      <DependentUpon>202005261123367_FileUniqueKeyMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005261125565_ConstantsMigration.cs" />
+    <Compile Include="Migrations\202005261125565_ConstantsMigration.designer.cs">
+      <DependentUpon>202005261125565_ConstantsMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005261128497_ConstantMigration.cs" />
+    <Compile Include="Migrations\202005261128497_ConstantMigration.designer.cs">
+      <DependentUpon>202005261128497_ConstantMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ManageModels.cs" />
     <Compile Include="Models\PageInfo.cs" />
@@ -311,6 +324,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005251852368_FileRetentionPeriodNotNullMigration.resx">
       <DependentUpon>202005251852368_FileRetentionPeriodNotNullMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261123367_FileUniqueKeyMigration.resx">
+      <DependentUpon>202005261123367_FileUniqueKeyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261125565_ConstantsMigration.resx">
+      <DependentUpon>202005261125565_ConstantsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261128497_ConstantMigration.resx">
+      <DependentUpon>202005261128497_ConstantMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
