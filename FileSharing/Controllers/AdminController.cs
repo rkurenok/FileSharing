@@ -158,6 +158,10 @@ namespace FileSharing.Controllers
             //        return RedirectToAction("Delete", "File", new { fileId = file.Id });
             //    }
             //}
+            if (user.Login == User.Identity.Name)
+            {
+                return RedirectToAction("Index", "Manage");
+            }
 
             return View(user);
         }
