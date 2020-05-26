@@ -39,6 +39,10 @@
                     @*@Html.DisplayNameFor(model => model.Date)*@
                     Доступ к файлу
                 </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Date)*@
+                    Категория
+                </th>
                 <th class="text-center">
                     Действия
                 </th>
@@ -96,6 +100,9 @@
                     </td>
                     <td>
                         @(item.AccessId == 1 ? "private" : "public")
+                    </td>
+                                        <td>
+                        @Html.DisplayFor(modelItem => item.CategoryId)
                     </td>
                     <td class="text-center">
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })

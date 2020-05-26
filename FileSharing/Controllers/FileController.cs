@@ -85,6 +85,26 @@ namespace FileSharing.Controllers
                     {
                         user.Files.Add(file);
                     }
+
+                    IEnumerable<Category> categories = db.Categories;
+                    string extention = System.IO.Path.GetExtension(INTERNAL_FILE_PATH + fileName);
+                    foreach (var category in categories)
+                    {
+                        string[] fileExtention = category.FilesExtension.Split(' ');
+                        for (int i = 0; i < fileExtention.Length; i++)
+                        {
+                            if (fileExtention[i] == extention)
+                            {
+                                file.CategoryId = category.Id;
+                                break;
+                            }
+                        }
+                    }
+                    if (file.CategoryId == 0)
+                    {
+                        file.CategoryId = 2;
+                    }
+
                     //db.SaveChanges();
                 }
                 db.SaveChanges();

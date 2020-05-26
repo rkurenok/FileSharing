@@ -52,8 +52,8 @@ namespace FileSharing.Models
 
             db.Constants.Add(new Constant { Id = 1, Name = "Salt", Value = "test" });
 
-            db.Categories.Add(new Category { Id = 1, Name = "Images" });
-            db.Categories.Add(new Category { Id = 1, Name = "Others" });
+            db.Categories.Add(new Category { Id = 1, Name = "Images", FilesExtension = ".jpg" });
+            db.Categories.Add(new Category { Id = 1, Name = "Others", FilesExtension = "" });
 
             base.Seed(db);
         }
