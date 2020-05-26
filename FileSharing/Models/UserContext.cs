@@ -41,9 +41,9 @@ namespace FileSharing.Models
             db.FileAccesses.Add(new FileAccess { Id = 1, Name = "private" });
             db.FileAccesses.Add(new FileAccess { Id = 2, Name = "public" });
 
-            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 1, Value = 10 });
-            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 2, Value = 30 });
-            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 3, Value = 60 });
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 1, Value = 3 }); // 3 дня
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 2, Value = 7 }); // 7 дней 
+            db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 3, Value = 30 }); // 30 дней
 
             base.Seed(db);
         }

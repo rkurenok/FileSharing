@@ -24,14 +24,15 @@
                 Открытый
                 @Html.RadioButton("access", "public")
             </div>
+            <br />
             <div>
                 Срок хранения файла
             </div>
-            10 секунд
+            3 дня
             @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
-            30 секунд
+            7 дней
             @Html.RadioButton("retentionPeriodId", 2) &nbsp;
-            1 минуту
+            1 месяц
             @Html.RadioButton("retentionPeriodId", 3) &nbsp;
         </div>
         <br />
