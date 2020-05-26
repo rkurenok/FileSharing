@@ -49,7 +49,7 @@ namespace FileSharing.Controllers
                 FileRetentionPeriod fileRetentionPeriod = null;
                 fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
                 DateTime creation = file.Date;
-                if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
+                if ((DateTime.Now - creation).TotalDays > fileRetentionPeriod.Value)
                 {
                     return RedirectToAction("Delete", "File", new { fileId = file.Id });
                 }
