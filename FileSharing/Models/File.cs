@@ -43,6 +43,9 @@ namespace FileSharing.Models
 
         public int? FileUniqueKeyId { get; set; }
         public FileUniqueKey FileUniqueKey { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 
     public class FileAccess

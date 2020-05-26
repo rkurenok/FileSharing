@@ -204,8 +204,17 @@
     <Compile Include="Migrations\202005261128497_ConstantMigration.designer.cs">
       <DependentUpon>202005261128497_ConstantMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005261701143_CategoryMigration.cs" />
+    <Compile Include="Migrations\202005261701143_CategoryMigration.designer.cs">
+      <DependentUpon>202005261701143_CategoryMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005261926260_FilesExtensionMigration.cs" />
+    <Compile Include="Migrations\202005261926260_FilesExtensionMigration.designer.cs">
+      <DependentUpon>202005261926260_FilesExtensionMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ManageModels.cs" />
@@ -334,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005261128497_ConstantMigration.resx">
       <DependentUpon>202005261128497_ConstantMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261701143_CategoryMigration.resx">
+      <DependentUpon>202005261701143_CategoryMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261926260_FilesExtensionMigration.resx">
+      <DependentUpon>202005261926260_FilesExtensionMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
