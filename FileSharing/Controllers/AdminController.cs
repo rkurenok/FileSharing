@@ -20,7 +20,6 @@ namespace FileSharing.Controllers
         {
             ViewBag.StatusMessage =
                 adminMessage == AdminMessageId.DeleteAccount ? "Пользователь " + userName + " был удален"
-                : adminMessage == AdminMessageId.EditUserRole ? "Роль пользователя " + userName + " была изменена" 
                 : "";
             //IEnumerable<User> users = db.Users;
 
@@ -138,8 +137,12 @@ namespace FileSharing.Controllers
         //}
 
 
-        public ActionResult AccountDetails(int? userId)
+        public ActionResult AccountDetails(AdminMessageId? adminMessage, string userName, int? userId, int page = 1)
         {
+            ViewBag.StatusMessage =
+                adminMessage == AdminMessageId.EditUserRole ? "Роль пользователя " + userName + " была изменена"
+                : "";
+
             User user = db.Users.FirstOrDefault(u => u.Id == userId);
 
             IEnumerable<File> files;
@@ -147,6 +150,15 @@ namespace FileSharing.Controllers
             files = db.Files.Include(f => f.User).Where(f => f.UserId == user.Id);
 
             ViewBag.Files = files;
+
+            int pageSize = 3;
+
+            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.UserId == user.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
+
+            ViewBag.User = user;
 
             //foreach (File file in files)
             //{
@@ -163,7 +175,7 @@ namespace FileSharing.Controllers
                 return RedirectToAction("Index", "Manage");
             }
 
-            return View(user);
+            return View(pvm);
         }
 
         public ActionResult DeleteAccount(int userId)
@@ -204,7 +216,7 @@ namespace FileSharing.Controllers
 
             if (user != null)
             {
-                return RedirectToAction("Index", new { adminMessage = AdminMessageId.EditUserRole, userName = user.Login });
+                return RedirectToAction("AccountDetails", new { adminMessage = AdminMessageId.EditUserRole, userName = user.Login, userId = user.Id });
             }
             return View(model);
         }
