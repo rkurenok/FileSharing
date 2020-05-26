@@ -20,6 +20,8 @@ namespace FileSharing.Models
         public DbSet<FileRetentionPeriod> FileRetentionPeriods { get; set; }
         public DbSet<FileUniqueKey> FileUniqueKeys { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<Constant> Constants { get; set; }
     }
 
@@ -49,6 +51,9 @@ namespace FileSharing.Models
             db.FileRetentionPeriods.Add(new FileRetentionPeriod { Id = 3, Value = 30 }); // 30 дней
 
             db.Constants.Add(new Constant { Id = 1, Name = "Salt", Value = "test" });
+
+            db.Categories.Add(new Category { Id = 1, Name = "Images" });
+            db.Categories.Add(new Category { Id = 1, Name = "Others" });
 
             base.Seed(db);
         }
