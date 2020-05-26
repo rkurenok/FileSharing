@@ -145,8 +145,26 @@
                 @Html.ActionLink("EditFile", "Manage", new { id = item.Id }, null) |
                 @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { fileId = item.Id })|*@
-                @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
-                @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, null)
+                @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null) |
+                @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, null) |
+                @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = item.Id }, null)
+                @{
+                    string link;
+                }
+                @if (item.FileUniqueKeyId != null)
+                {
+                    foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                    {
+                        if (item.FileUniqueKeyId == uniqueKey.Id)
+                        {
+                            link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                            @*@Html.ActionLink("Скачать через ссылку", "DownloadByLink", "File", new { fileId = item.Id, uniqueKey = uniqueKey.UniqueKey }, null)*@
+                            <a id="linkFile" onclick="copyToClipboard()">@link</a>
+                            <br />
+                            <div>Нажмите на ссылку, чтобы скопировать ее</div>
+                        }
+                    }
+                }
             </td>
         </tr>
     }
@@ -156,3 +174,33 @@
 <div class="btn-group">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
 </div>
+@section scripts {
+    <script type="text/javascript">
+        function copyToClipboard() {
+            var copytext = document.createElement('input')
+            copytext.value = document.getElementById("linkFile").innerHTML.toString();
+            document.body.appendChild(copytext)
+            copytext.select()
+            document.execCommand('copy')
+            document.body.removeChild(copytext)
+        }
+
+        document.addEventListener('copy', function (e) {
+
+            // Нам необходимо предотвратить стандартное копирование,
+            // иначе все просто скопируется как обычно.
+            e.preventDefault();
+
+            // Событие не дает нам доступ к буферу поэтому
+            // нам надо добавить выделение с помощью Selection API.
+            var selection = window.getSelection().toString();
+
+            // Трансформируем выделенное как хотим
+            var linkText = selection.replace("&amp;", "&");
+
+            // Вставляем измененный текст в буфер.
+            e.clipboardData.setData('text/plain', linkText);
+
+        })
+    </script>
+}

@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -51,6 +53,7 @@ namespace FileSharing.Controllers
             object routeValues = null;
             if (uploads[0] != null)
             {
+                File file = null;
                 foreach (HttpPostedFileBase uploadFile in uploads)
                 {
                     // получаем имя файла
@@ -61,7 +64,6 @@ namespace FileSharing.Controllers
                     int? userId = null;
                     System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
                     long size = file1.Length;
-                    File file = null;
 
                     // добавляем файл в бд
                     User user = null;
@@ -86,7 +88,7 @@ namespace FileSharing.Controllers
                     //db.SaveChanges();
                 }
                 db.SaveChanges();
-                routeValues = new { fileMessage = FileMessageId.UploadFile };
+                routeValues = new { fileMessage = FileMessageId.UploadFile, fileId = file.Id };
                 // получаем имя файла
                 //fileName = System.IO.Path.GetFileName(upload.FileName);
                 //// сохраняем файл в папку Files в проекте
@@ -203,12 +205,60 @@ namespace FileSharing.Controllers
 
             return File(file_path, file_type, fileName);
         }
+
+        public ActionResult DownloadByLink(int fileId, string uniqueKey)
+        {
+            File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            FileUniqueKey fileUniqueKey = db.FileUniqueKeys.FirstOrDefault(k => k.UniqueKey == uniqueKey);
+            if (file.FileUniqueKeyId == fileUniqueKey.Id)
+            {
+                return View(file);
+            }
+
+            return RedirectToAction("Index", "Home", new { fileMessage = FileMessageId.FileDownload });
+        }
+
+        public ActionResult GetFileDownloadLink(int fileId)
+        {
+            File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            if (file.FileUniqueKeyId == null)
+            {
+                Constant saltConstant = db.Constants.First();
+                string salt = saltConstant.Value;
+                string login = "Anonym";
+                DateTime date = DateTime.Now;
+                string hash = sha1(sha1(login + date + salt));
+
+                FileUniqueKey uniqueKey = db.FileUniqueKeys.Add(new FileUniqueKey { UniqueKey = hash, FileId = fileId });
+                db.SaveChanges();
+                file.FileUniqueKeyId = uniqueKey.Id;
+                db.SaveChanges();
+            }
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home", new { fileId = fileId});
+            }
+
+            return RedirectToAction("Index", "Manage");
+        }
+
+        private string sha1(string input)
+        {
+            byte[] hash;
+            using (var sha1 = new System.Security.Cryptography.SHA1CryptoServiceProvider())
+                hash = sha1.ComputeHash(Encoding.Unicode.GetBytes(input));
+            var sb = new StringBuilder();
+            foreach (byte b in hash) sb.AppendFormat("{0:x2}", b);
+            return sb.ToString();
+        }
     }
 
     public enum FileMessageId
     {
         DeleteFile,
         UploadFile,
+        FileDownload,
         Error
     }
 }

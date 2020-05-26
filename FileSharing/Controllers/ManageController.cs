@@ -55,6 +55,9 @@ namespace FileSharing.Controllers
                 }
             }
 
+            IEnumerable<FileUniqueKey> uniqueKeys = db.FileUniqueKeys;
+            ViewBag.FileUniqueKeys = uniqueKeys;
+
             return View(pvm);
         }
 
