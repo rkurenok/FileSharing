@@ -146,7 +146,7 @@
                 @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { fileId = item.Id })|*@
                 @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
-                @Html.ActionLink("Скачать", "Download", new { fileId = item.Id })
+                @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, null)
             </td>
         </tr>
     }

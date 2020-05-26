@@ -180,6 +180,9 @@ namespace FileSharing.Controllers
         public FilePathResult Download(int fileId)
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            //User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
+            //if (User.Identity.IsAuthenticated && file.UserId == user.Id || User.IsInRole("admin")) { }
+
             // Имя файла (необязательно)
             string fileName = file.OriginalName;
             // Путь к файлу
