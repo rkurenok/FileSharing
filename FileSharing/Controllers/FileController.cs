@@ -28,7 +28,7 @@ namespace FileSharing.Controllers
 
             int pageSize = 3;
             IEnumerable<File> files;
-            ViewBag.CategoryId = null;
+            ViewBag.CategoryId = category;
             if (category == 0)
             {
                 files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
@@ -58,6 +58,27 @@ namespace FileSharing.Controllers
 
             ViewBag.Categories = db.Categories;
 
+            return View(pvm);
+        }
+
+        [HttpPost]
+        public ActionResult Index(string serachFile, int page = 0)
+        {
+            IEnumerable<File> files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
+            if (!string.IsNullOrEmpty(serachFile))
+            {
+                files = db.Files.Where(f => f.AccessId == 2 && f.Name.Contains(serachFile)).OrderBy(f => f.Id);
+            }
+            if (files == null)
+            {
+                files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
+                ViewBag.StatusMessage = "Совпадения не найдены";
+            }
+            ViewBag.Categories = db.Categories;
+            int pageSize = 3;
+            IEnumerable<File> filesPerPage = files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
             return View(pvm);
         }
 
@@ -299,6 +320,7 @@ namespace FileSharing.Controllers
         DeleteFile,
         UploadFile,
         FileDownload,
+        FileNotFound,
         Error
     }
 }

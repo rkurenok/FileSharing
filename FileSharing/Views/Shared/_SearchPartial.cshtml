@@ -1,0 +1,11 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
+    {
+        @Html.TextBox("serachFile", null, new { @placeholder = "Найти..." })
+        <span>
+            <input type="submit" value="Фильтр" class="btn btn-default" />
+        </span>
+    }
+}
+
