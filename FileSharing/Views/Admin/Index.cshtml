@@ -115,10 +115,6 @@
         </table>
     </div>
 </div>
-<br />
-<div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
-</div>
 @*@Html.Partial("_PageNav", ViewData["pvm"])*@
 
 @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
@@ -136,6 +132,10 @@
     </div>
 
 }
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, item = ViewBag.Item }))
+</div>
 
 @section scripts {
     <script type="text/javascript">
