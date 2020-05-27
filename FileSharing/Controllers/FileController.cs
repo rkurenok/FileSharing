@@ -20,14 +20,27 @@ namespace FileSharing.Controllers
         public const int FILE_ENSURANCE = 16;
 
         // GET: File
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int? category = 0, int page = 1)
         {
             //IEnumerable<File> files = db.Files.ToList();
-            var files = db.Files.Include(f => f.User).Where(f => f.AccessId == 2);
+            //var files = db.Files.Include(f => f.User).Where(f => f.AccessId == 2);
             ViewBag.FileAccess = db.FileAccesses;
 
             int pageSize = 3;
-            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            IEnumerable<File> files;
+            ViewBag.CategoryId = null;
+            if (category == 0)
+            {
+                files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
+                ViewBag.CategoryId = category;
+            }
+            else
+            {
+                files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2 && f.CategoryId == category);
+                ViewBag.CategoryId = category;
+            }
+
+            IEnumerable<File> filesPerPage = files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
@@ -42,6 +55,8 @@ namespace FileSharing.Controllers
                     return RedirectToAction("Delete", "File", new { fileId = file.Id });
                 }
             }
+
+            ViewBag.Categories = db.Categories;
 
             return View(pvm);
         }
@@ -163,7 +178,10 @@ namespace FileSharing.Controllers
                 }
             }
             FileUniqueKey fileUniqueKey =  db.FileUniqueKeys.FirstOrDefault(k => k.FileId == file.Id);
-            db.FileUniqueKeys.Remove(fileUniqueKey);
+            if (fileUniqueKey != null)
+            {
+                db.FileUniqueKeys.Remove(fileUniqueKey);
+            }
             db.Files.Remove(file);
             db.SaveChanges();
 
