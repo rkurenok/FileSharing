@@ -2,10 +2,14 @@
 {
     using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
     {
-        @Html.TextBox("serachFile", null, new { @placeholder = "Найти..." })
-        <span>
-            <input type="submit" value="Фильтр" class="btn btn-default" />
-        </span>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.TextBox("serachFile", null, new { @placeholder = "Найти...", @style = "padding-top: 7px; padding-bottom: 7px; line-height: 20px; position: relative; " })
+                <span>
+                    <input type="submit" value="Найти" class="btn btn-default" style="" />
+                </span>
+            </li>
+        </ul>
     }
 }
 
