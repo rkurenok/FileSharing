@@ -69,6 +69,10 @@ namespace FileSharing.Controllers
             {
                 files = db.Files.Where(f => f.AccessId == 2 && f.Name.Contains(serachFile)).OrderBy(f => f.Id);
             }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (files == null)
             {
                 files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
