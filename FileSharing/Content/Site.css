@@ -40,7 +40,7 @@ textarea {
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    color: #4cff00;
+    /*color: #4cff00;*/
     background-color: #ffd800;
 }
 
@@ -54,7 +54,6 @@ textarea {
 }
 
 #glyphiconAdd {
-
 }
 
 .file-select {
@@ -85,7 +84,174 @@ textarea {
         padding: 5px 10px;
     }
 
-    .file-select:focus + label,
-    .file-select + label:hover {
+    .file-select:focus + label, .file-select + label:hover {
         background: #0a0eb1;
+    }
+
+/** {
+    box-sizing: border-box;
+}
+
+#serachFile {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+    height: 42px;
+}
+
+#inputTextSearch {
+    height: 42px;
+    width: 0;
+    padding: 15px 42px 15px 15px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    outline: none;
+    background: transparent;
+    transition: .4s cubic-bezier(0, 0.8, 0, 1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
+    #inputTextSearch:focus {
+        width: 300px;
+        z-index: 1;
+        border-bottom: 2px solid #F9F0DA;
+    }
+
+#buttonSearch {
+    background: #683B4D;
+    border: none;
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+    #buttonSearch:before {
+        content: "\f002";
+        font-family: FontAwesome;
+        font-size: 16px;
+        color: #F9F0DA;
+    }*/
+
+
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+.containerTest {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    height: 100px;
+}
+.search {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background: #0789e4;
+    border-radius: 50%;
+    transition: all 1s;
+    z-index: 4;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+}
+.search:hover {
+    cursor: pointer;
+}
+
+    .search::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 22px;
+        right: 0;
+        bottom: 0;
+        left: 22px;
+        width: 12px;
+        height: 2px;
+        background: white;
+        transform: rotate(45deg);
+        transition: all .5s;
+    }
+
+    .search::after {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: -5px;
+        right: 0;
+        bottom: 0;
+        left: -5px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 2px solid white;
+        transition: all .5s;
+    }
+
+
+#inputTextSearch {
+    font-family: 'Inconsolata', monospace;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 40px;
+    outline: none;
+    border: none;
+    background: #f5f5f5;
+    color: #4a4a4a;
+    /*text-shadow: 0 0 10px crimson;*/
+    padding: 0 80px 0 20px;
+    border-radius: 30px;
+    /*box-shadow: 0 0 25px 0 crimson, 0 20px 25px 0 rgba(0, 0, 0, 0.2);*/
+    transition: all 1s;
+    opacity: 0;
+    z-index: 5;
+    font-weight: bolder;
+    letter-spacing: 0.1em;
+}
+    #inputTextSearch:hover {
+        cursor: pointer;
+    }
+
+    #inputTextSearch:focus {
+        width: 300px;
+        opacity: 1;
+        cursor: text;
+    }
+
+        #inputTextSearch:focus ~ .search {
+            right: -250px;
+            background: #151515;
+            z-index: 6;
+        }
+            #inputTextSearch:focus ~ .search::before {
+                top: 0;
+                left: 0;
+                width: 25px;
+            }
+
+    #inputTextSearch::after {
+        top: 0;
+        left: 0;
+        width: 25px;
+        height: 2px;
+        border: none;
+        background: white;
+        border-radius: 0%;
+        transform: rotate(-45deg);
     }

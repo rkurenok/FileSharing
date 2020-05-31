@@ -25,11 +25,18 @@
                     <li>@Html.ActionLink("Информация", "About", "Home")</li>
                     <li>@Html.ActionLink("Связаться", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Файлы", "Index", "File")</li>
+                    @using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
+                    {
+                        <li class="containerTest">
+                            @Html.TextBox("serachFile", null, new { @placeholder = "Найти...", @id = "inputTextSearch" })
+                            <div class="search"></div>
+                        </li>
+                    }
                     @*<li>@Html.ActionLink("Войти", "Login", "Account")</li>
-                        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>*@
+        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
-                @Html.Partial("_SearchPartial")
+                @*@Html.Partial("_SearchPartial")*@
             </div>
         </div>
     </div>
