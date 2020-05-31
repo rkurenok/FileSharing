@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: url("Images/Gorizont1920x1080.jpg");
+    background-size: auto;
+    color: #9ddbffd4;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -40,3 +43,49 @@ textarea {
     color: #4cff00;
     background-color: #ffd800;
 }
+
+#upload {
+    width: 471px;
+    height: 542px;
+    background-color: #ffabe70f;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: #2a5a9c;
+}
+
+#glyphiconAdd {
+
+}
+
+.file-select {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+    .file-select.file-select-lg + label {
+        padding: 10px 10px;
+        font-size: 18px;
+    }
+
+    .file-select + label {
+        font-size: 14px;
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        border-radius: 3px;
+    }
+
+    .file-select.file-select-sm + label {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .file-select:focus + label,
+    .file-select + label:hover {
+        background: #0a0eb1;
+    }
