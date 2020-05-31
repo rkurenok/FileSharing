@@ -26,4 +26,17 @@ textarea {
 .navbar-right .dropdown-menu {
     right: 0;
     left: 0;
+    background-color: #000000;
+}
+
+.navbar-nav > li > .dropdown-menu > li > a {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    color: #9d9d9d;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color: #4cff00;
+    background-color: #ffd800;
 }
