@@ -107,6 +107,10 @@ textarea {
     color: white;
 }
 
+#fileSharingLink:hover {
+    text-decoration: none; /* Добавляем подчеркивание при наведении курсора на ссылку */
+}
+
 #glyphiconAdd {
 }
 

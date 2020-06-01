@@ -16,7 +16,7 @@
 
         <div class="form-horizontal">
 
-            <h3 class="col-md-12">@Html.ActionLink("FileSharing", "Index", "Home", null, htmlAttributes: new { })</h3>
+            <h3 class="col-md-12">@Html.ActionLink("FileSharing", "Index", "Home", null, htmlAttributes: new { @id = "fileSharingLink" })</h3>
             <div class="col-md-12"><br /></div>
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "color: #ff4f4c" })
