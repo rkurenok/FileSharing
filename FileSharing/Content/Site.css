@@ -64,6 +64,19 @@ textarea {
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
+#register {
+    position: relative;
+    width: 570px;
+    height: 542px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+.row {
+    margin-right: 0;
+}
+
 #glyphiconAdd {
 }
 

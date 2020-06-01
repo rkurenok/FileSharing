@@ -4,7 +4,7 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Страница входа</h2>
+<h2>Вход</h2>
 <br />
 
 <div style="margin:0 auto;">
@@ -15,10 +15,10 @@
 
         <div class="form-horizontal">
 
-            <h3 class="col-md-12">@Html.ActionLink("FileSharing", "Index", "Home", htmlAttributes: new { @style = "margin: 100px 10px, 10px, 10px" })</h3>
+            <h3 class="col-md-12">@Html.ActionLink("FileSharing", "Index", "Home", null, htmlAttributes: new { })</h3>
 
             <div class="col-md-12"><br /></div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "color: #ff4f4c" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
                 <div class="col-md-7">
