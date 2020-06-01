@@ -6,75 +6,92 @@
     ViewBag.Title = "Index";
 }
 <p class="text-success">@ViewBag.StatusMessage</p>
-<h2>Index</h2>
+<br />
+<h2>Профиль пользователя</h2>
+<br />
+<br />
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Email)*@
-            Email
+<div style="margin:0 auto;">
+    <div id="manageAccount" class="text-center" style=" margin: auto;">
+        <br />
+        <div>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @*@Html.DisplayNameFor(model => model.Email)*@
+                    Email
+                </dt>
+
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.Email)*@
+                    @ViewBag.User.Email
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @*@Html.DisplayNameFor(model => model.Login)*@
+                    Логин
+                </dt>
+
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.Login)*@
+                    @ViewBag.User.Login
+                </dd>
+            </dl>
+            @*<dt>
+            @Html.DisplayNameFor(model => model.Password)
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(model => model.Email)*@
-            @ViewBag.User.Email
-        </dd>
+            @Html.DisplayFor(model => model.Password) &nbsp; &nbsp; @Html.ActionLink("Смена пароля", "ChangePassword")
+        </dd>*@
+            <dl class="row">
+                <dt class="col-md-6">
+                    @*@Html.DisplayNameFor(model => model.Age)*@
+                    Возраст
+                </dt>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Login)*@
-            Логин
-        </dt>
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.Age)*@
+                    @ViewBag.User.Age
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @*@Html.DisplayNameFor(model => model.Gender)*@
+                    Пол
+                </dt>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.Login)*@
-            @ViewBag.User.Login
-        </dd>
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.Gender)*@
+                    @ViewBag.User.Gender
+                </dd>
 
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Password)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Password) &nbsp; &nbsp; @Html.ActionLink("Смена пароля", "ChangePassword")
-            </dd>*@
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Age)*@
-            Возраст
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.Age)*@
-            @ViewBag.User.Age
-        </dd>
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Gender)*@
-            Пол
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.Gender)*@
-            @ViewBag.User.Gender
-        </dd>
-
-        @*<dt>
+                @*<dt>
                 @Html.DisplayNameFor(model => model.RoleId)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.RoleId)
             </dd>*@
-        @Html.ActionLink("Смена пароля", "ChangePassword")
+                @*@Html.ActionLink("Смена пароля", "ChangePassword")*@
 
-    </dl>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.ActionLink("Редактировать профиль", "EditAccount", null, htmlAttributes: new { @class = "btn btn-primary" })
+                </dt>
+
+                <dd class="col-md-6">
+                    @Html.ActionLink("Сменить пароль", "ChangePassword", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 184.56px" })
+                </dd>
+            </dl>
+            <div class="row"><br /></div>
+            <dl class="row">
+                @Html.ActionLink("На главную", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-success", @style = "min-width: 184.56px" })
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Редактировать", "EditAccount") |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
 <h3>Файлы</h3>
