@@ -6,8 +6,9 @@
 @*<h2>Главная страница</h2>
 
 @ViewBag.Result*@
-
+<h2 class="text-center">Загружайте и делитесь файлами.</h2>
 <h3 class="text-center">Выберите файл для загрузки</h3>
+<br />
 @*<button type="button" id="glyphiconAdd">
         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="font-size: 250%"></span>
     </button>*@
@@ -20,7 +21,7 @@
                 <br />
                 <div>
                     @*<input type="file" name="uploads" multiple>
-                        <br>*@
+                    <br>*@
                     <input type="file" name="uploads" id="file-lg" class="file-select file-select-lg" multiple />
                     <label for="file-lg" class="filename">
                         <i class="fa fa-arrow-circle-o-up"></i>
@@ -34,14 +35,14 @@
                         </div>
                         <!-- Material checked -->
                         @*<div class="form-check">
-                                <label class="form-check-label" for="materialChecked">Закрытый</label>
-                                <input type="radio" class="form-check-input" id="materialChecked" name="access" checked>
-                            </div>*@
+                            <label class="form-check-label" for="materialChecked">Закрытый</label>
+                            <input type="radio" class="form-check-input" id="materialChecked" name="access" checked>
+                        </div>*@
                         <!-- Material unchecked -->
                         @*<div class="form-check">
-                                <input type="radio" class="form-check-input" id="materialUnchecked" name="access">
-                                <label class="form-check-label" for="materialUnchecked">Открытый</label>
-                            </div>*@
+                            <input type="radio" class="form-check-input" id="materialUnchecked" name="access">
+                            <label class="form-check-label" for="materialUnchecked">Открытый</label>
+                        </div>*@
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
                                 <input type="radio" name="access" id="option1" autocomplete="off" value="private" checked> Закрытый
@@ -50,24 +51,24 @@
                                 <input type="radio" name="access" id="option2" autocomplete="off" value="public"> Открытый
                             </label>
                         </div>
-                        <span id="btn-tooltip" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
+                        <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                         @*<div id="access">
-                                Закрытый
-                                @Html.RadioButton("access", "private", true, htmlAttributes: new { @id = "materialChecked" }) &nbsp;
-                                Открытый
-                                @Html.RadioButton("access", "public")
-                            </div>*@
+                            Закрытый
+                            @Html.RadioButton("access", "private", true, htmlAttributes: new { @id = "materialChecked" }) &nbsp;
+                            Открытый
+                            @Html.RadioButton("access", "public")
+                        </div>*@
                         <br />
                         <br />
                         <div>
                             <h4>Срок хранения файла</h4>
                         </div>
                         @*3 дня
-                            @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
-                            7 дней
-                            @Html.RadioButton("retentionPeriodId", 2) &nbsp;
-                            1 месяц
-                            @Html.RadioButton("retentionPeriodId", 3) &nbsp;*@
+                        @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
+                        7 дней
+                        @Html.RadioButton("retentionPeriodId", 2) &nbsp;
+                        1 месяц
+                        @Html.RadioButton("retentionPeriodId", 3) &nbsp;*@
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
                                 <input type="radio" name="retentionPeriodId" id="option1" autocomplete="off" value=1 checked> 3 дня
@@ -82,35 +83,79 @@
                     </div>
                     <br />
                 </div>
+                <input type="submit" class="btn btn-primary" value="Загрузить" />
             }
             else
             {
-                <input type="file" name="uploads">
-                <br>
-                <div id="access" style="display: none">
-                    <div>
-                        Доступ к файлу
+                <br />
+                <div>
+                    @*<input type="file" name="uploads" multiple>
+                    <br>*@
+                    <input type="file" name="uploads" id="file-lg" class="file-select file-select-lg" multiple />
+                    <label for="file-lg" class="filename">
+                        <i class="fa fa-arrow-circle-o-up"></i>
+                        Выберите файл...
+                    </label>
+                    <p id="result"></p>
+                    <br />
+                    <div style="display: none">
+                        <div>
+                            <h4>Доступ к файлу</h4>
+                        </div>
+                        <!-- Material checked -->
+                        @*<div class="form-check">
+                            <label class="form-check-label" for="materialChecked">Закрытый</label>
+                            <input type="radio" class="form-check-input" id="materialChecked" name="access" checked>
+                        </div>*@
+                        <!-- Material unchecked -->
+                        @*<div class="form-check">
+                            <input type="radio" class="form-check-input" id="materialUnchecked" name="access">
+                            <label class="form-check-label" for="materialUnchecked">Открытый</label>
+                        </div>*@
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="access" id="option1" autocomplete="off" value="private" checked> Закрытый
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="access" id="option2" autocomplete="off" value="public"> Открытый
+                            </label>
+                        </div>
+                        <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
+                        @*<div id="access">
+                            Закрытый
+                            @Html.RadioButton("access", "private", true, htmlAttributes: new { @id = "materialChecked" }) &nbsp;
+                            Открытый
+                            @Html.RadioButton("access", "public")
+                        </div>*@
+                        <br />
+                        <br />
+                        <div>
+                            <h4>Срок хранения файла</h4>
+                        </div>
+                        @*3 дня
+                        @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
+                        7 дней
+                        @Html.RadioButton("retentionPeriodId", 2) &nbsp;
+                        1 месяц
+                        @Html.RadioButton("retentionPeriodId", 3) &nbsp;*@
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="retentionPeriodId" id="option1" autocomplete="off" value=1 checked> 3 дня
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="retentionPeriodId" id="option2" autocomplete="off" value=2> 7 дней
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="retentionPeriodId" id="option2" autocomplete="off" value=3> 1 месяц
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        @*@Html.Label("Access", "Открытый")*@
-                        Закрытый
-                        @Html.RadioButton("access", "private", true) &nbsp;
-                        Открытый
-                        @Html.RadioButton("access", "public")
-                    </div>
-                    <div>
-                        Срок хранения файла
-                    </div>
-                    10 секунд
-                    @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
-                    30 секунд
-                    @Html.RadioButton("retentionPeriodId", 2) &nbsp;
-                    1 минуту
-                    @Html.RadioButton("retentionPeriodId", 3) &nbsp;
+                    <br />
                 </div>
-
+                <input type="submit" class="btn btn-primary" value="Загрузить" />
+                <br /> <br />
+                @Html.ActionLink("Войдите, чтобы отправлять файлы до 2,5ГБ", "Login", "Account")
             }
-            <input type="submit" class="btn btn-primary" value="Загрузить" />
         }
         @{
             string link;
@@ -119,7 +164,7 @@
         {
             @ViewBag.File.Name
             <br />
-            @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = ViewBag.File.Id }, null)
+            @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = ViewBag.File.Id }, htmlAttributes: new { @style = "color: #4faeff;" })
             <br />
             if (ViewBag.File.FileUniqueKeyId != null)
             {

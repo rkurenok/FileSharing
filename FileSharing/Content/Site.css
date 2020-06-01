@@ -45,12 +45,14 @@ textarea {
 }
 
 #upload {
+    position:relative;
     width: 471px;
     height: 542px;
     background-color: #ffabe70f;
-    border-width: 2px;
-    border-style: dashed;
-    border-color: #2a5a9c;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    /*border-style: dashed;*/
+    /*border-color: #2a5a9c;*/
 }
 
 #glyphiconAdd {
@@ -159,7 +161,7 @@ textarea {
     left: 0;
     width: 50px;
     height: 50px;
-    background: #0789e4;
+    background: #de4242;
     border-radius: 50%;
     transition: all 1s;
     z-index: 4;
