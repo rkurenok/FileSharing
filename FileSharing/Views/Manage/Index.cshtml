@@ -159,7 +159,7 @@
                 @(item.AccessId == 1 ? "private" : "public")
             </td>
             <td>
-                @Html.ActionLink("EditFile", "Manage", new { id = item.Id }, null) |
+                @Html.ActionLink("EditFile", "EditFile", new { fileId = item.Id }, null) |
                 @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { fileId = item.Id })|*@
                 @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null) |
