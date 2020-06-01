@@ -1,73 +1,91 @@
 ﻿@model FileSharing.Models.File
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детали файла";
 }
 
-<h2>FileDetails</h2>
+<br />
+<h2 id="headerId">Детали файла</h2>
+<br />
+<br />
 
-<div>
-    <h4>File</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+<div style="margin:0 auto;">
+    <div id="fileDetails" class="text-center" style=" margin: auto;">
+        <br />
+        <div>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SizeInBytes)
-        </dt>
+                <dd class="col-md-6">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.DisplayNameFor(model => model.SizeInBytes)
+                </dt>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.SizeInBytes)*@
-            @{
-                string size = string.Format("{0} Б", Model.SizeInBytes);
-                double sizeInKBytes, sizeInMBytes, sizeInGBytes;
-                if (Model.SizeInBytes >= 1024)
-                {
-                    sizeInKBytes = (double)Model.SizeInBytes / 1024;
-                    size = string.Format("{0:N2} КБ", sizeInKBytes);
-                    if (sizeInKBytes >= 1024)
-                    {
-                        sizeInMBytes = (double)sizeInKBytes / 1024;
-                        size = string.Format("{0:N2} МБ", sizeInMBytes);
-                        if (sizeInMBytes >= 1024)
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.SizeInBytes)*@
+                    @{
+                        string size = string.Format("{0} Б", Model.SizeInBytes);
+                        double sizeInKBytes, sizeInMBytes, sizeInGBytes;
+                        if (Model.SizeInBytes >= 1024)
                         {
-                            sizeInGBytes = (double)sizeInMBytes / 1024;
-                            size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                            sizeInKBytes = (double)Model.SizeInBytes / 1024;
+                            size = string.Format("{0:N2} КБ", sizeInKBytes);
+                            if (sizeInKBytes >= 1024)
+                            {
+                                sizeInMBytes = (double)sizeInKBytes / 1024;
+                                size = string.Format("{0:N2} МБ", sizeInMBytes);
+                                if (sizeInMBytes >= 1024)
+                                {
+                                    sizeInGBytes = (double)sizeInMBytes / 1024;
+                                    size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                                }
+                            }
                         }
                     }
-                }
-            }
-            @size
-        </dd>
+                    @size
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @*@Html.DisplayNameFor(model => model.UserId)*@
+                    Автор
+                </dt>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.UserId)*@
-            Автор
-        </dt>
+                <dd class="col-md-6">
+                    @Html.DisplayFor(model => model.User.Login)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.DisplayNameFor(model => model.AccessId)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Login)
-        </dd>
+                <dd class="col-md-6">
+                    @*@Html.DisplayFor(model => model.SizeInBytes)*@
+                    @(Model.AccessId == 1 ? "private" : "public")
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessId)
-        </dt>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "min-width: 219px" })
+                </dt>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.SizeInBytes)*@
-            @(Model.AccessId == 1 ? "private" : "public")
-        </dd>
-
-    </dl>
+                <dd class="col-md-6">
+                    @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "min-width: 219px" })
+                </dd>
+            </dl>
+            <div class="row"><br /></div>
+            <dl class="row">
+                @Html.ActionLink("Назад", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }) |
-    @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
