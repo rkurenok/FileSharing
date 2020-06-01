@@ -4,7 +4,9 @@
     ViewBag.Title = "Login";
 }
 
+<br />
 <h2>Вход</h2>
+<br />
 <br />
 
 <div style="margin:0 auto;">
@@ -43,11 +45,11 @@
             <div class="col-md-12"><br /></div>
 
             <div class="row">
-                <div class="col-md-6 col-lg-offset-1">
-                    <input type="submit" value="Войти" class="btn btn-success btn-block" style="margin-left: 35px" />
+                <div class="col-md-6">
+                    <input type="submit" value="Войти" class="btn btn-success " style="margin-left: 50px; width: 200px" />
                 </div>
-                <div class="col-md-3">
-                    @Html.ActionLink("Назад", "Index", "Home", htmlAttributes: new { @class = "btn btn-warning" })
+                <div class="col-md-6">
+                    @Html.ActionLink("Назад", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 100px" })
                 </div>
             </div>
             @*<div class="btn-group btn-group-justified">
