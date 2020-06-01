@@ -21,7 +21,7 @@ namespace FileSharing.Models
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение нового пароля")]
+        [Display(Name = "Подтверждение пароля")]
         [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
     }
