@@ -129,6 +129,15 @@ textarea {
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
+#fileDetails {
+    position: relative;
+    width: 570px;
+    height: 350px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
 #glyphiconAdd {
 }
 
