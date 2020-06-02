@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Детали файла";
+    string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
 }
 
 <br />
@@ -66,12 +67,13 @@
             {
                 <dl class="row">
                     <dt class="col-md-6">
-                        @Html.DisplayNameFor(model => model.AccessId)
+                        Доступ к файлу
                     </dt>
 
                     <dd class="col-md-6">
                         @*@Html.DisplayFor(model => model.SizeInBytes)*@
-                        @(Model.AccessId == 1 ? "private" : "public")
+                        @(Model.AccessId == 1 ? "Закрытый" : "Открытый")
+                        <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                     </dd>
 
                 </dl>

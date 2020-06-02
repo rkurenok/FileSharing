@@ -210,18 +210,23 @@ namespace FileSharing.Controllers
             {
                 db.FileUniqueKeys.Remove(fileUniqueKey);
             }
-            db.Files.Remove(file);
-            db.SaveChanges();
-
-            IEnumerable<File> files = db.Files.ToList();
             User user1 = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
             if (user1.Id != file.UserId)
             {
+                db.Files.Remove(file);
+                db.SaveChanges();
+                IEnumerable<File> files = db.Files.ToList();
                 routeValues = new { fileMessage = FileMessageId.DeleteFile, fileName };
                 return RedirectToAction("FileList", "Admin", routeValues);
             }
-
-            return RedirectToAction("Index", "Manage", routeValues);
+            else
+            {
+                db.Files.Remove(file);
+                db.SaveChanges();
+                IEnumerable<File> files = db.Files.ToList();
+                routeValues = new { fileMessage = FileMessageId.DeleteFile, fileName };
+                return RedirectToAction("Index", "Manage", routeValues);
+            }
         }
 
         public ActionResult Details(int id)

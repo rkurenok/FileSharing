@@ -38,7 +38,7 @@ namespace FileSharing.Controllers
             ViewBag.User = user;
             ViewBag.Files = files;
 
-            int pageSize = 3;
+            int pageSize = 8;
             IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.UserId == user.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
