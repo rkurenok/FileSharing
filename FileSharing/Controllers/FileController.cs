@@ -283,6 +283,8 @@ namespace FileSharing.Controllers
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
             FileUniqueKey fileUniqueKey = db.FileUniqueKeys.FirstOrDefault(k => k.UniqueKey == uniqueKey);
+            User user = db.Users.FirstOrDefault(u => u.Id == file.UserId);
+            ViewBag.User = user;
             if (file.FileUniqueKeyId == fileUniqueKey.Id)
             {
                 return View(file);
