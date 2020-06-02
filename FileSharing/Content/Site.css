@@ -86,8 +86,28 @@ textarea {
     padding-right: 0;
 }
 
+.col-md-3 {
+    padding-right: 0;
+}
+
 .form-horizontal .form-group {
     margin-left: 0;
+}
+
+.btn-success {
+    background-color: #5cb85cbf;
+}
+
+.btn-warning {
+    background-color: #f0ad4eb0;
+}
+
+.btn-info {
+    background-color: #5bc0dec4;
+}
+
+.btn-danger {
+    background-color: #d9534fcf;
 }
 
 #manageAccount {
@@ -146,6 +166,15 @@ textarea {
 #fileIndex {
     position: relative;
     width: 340px;
+    height: 205px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+#fileManage {
+    position: relative;
+    width: 400px;
     height: 205px;
     background-color: #ffabe70f;
     border: 0px solid #fff;

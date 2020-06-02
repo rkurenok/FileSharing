@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Редактирование файла";
+    string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
 }
 
 <br />
@@ -54,6 +55,7 @@
                                 <label class="btn btn-primary">
                                     <input type="radio" name="AccessId" id="AccessId" autocomplete="off" value=2> Открытый
                                 </label>
+                                <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                             }
                             else if (ViewBag.Access == "public")
                             {
@@ -63,6 +65,7 @@
                                 <label class="btn btn-primary active">
                                     <input type="radio" name="AccessId" id="Gender" autocomplete="off" value=2 checked> Открытый
                                 </label>
+                                <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                             }
                         </div>
                     </div>
