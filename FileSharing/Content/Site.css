@@ -174,12 +174,16 @@ textarea {
 
 #fileManage {
     position: relative;
-    width: 400px;
-    height: 205px;
+    width: 450px;
+    height: 300px;
     background-color: #ffabe70f;
     border: 0px solid #fff;
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
+
+/*#linkHidden {
+    display: none;
+}*/
 
 .thumbnail {
     background-color: transparent;
