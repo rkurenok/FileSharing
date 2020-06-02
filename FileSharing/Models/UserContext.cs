@@ -53,13 +53,13 @@ namespace FileSharing.Models
             db.Constants.Add(new Constant { Id = 1, Name = "Salt", Value = "test" });
 
             db.Categories.Add(new Category { Id = 1, Name = "Изображения", FilesExtension = ".jpg .psd .bmp .jpeg .jp2 .j2k .jpf .jpm .jpg2 .j2c .jpc .jxr .hdp .wdp .gif .eps .png .pict .pcx .ico .crd .ai .raw .svg .webp" });
-            db.Categories.Add(new Category { Id = 1, Name = "Аудио", FilesExtension = ".aif .cda .mid .midi .mp3 .mpa .ogg .wav .wma .wpl" });
-            db.Categories.Add(new Category { Id = 1, Name = "Видео", FilesExtension = ".3g2 .3gp .avi .flv .h264 .m4v .mkv .mov .mp4 .mpg .mpeg .rm .swf .vob .wmv" });
-            db.Categories.Add(new Category { Id = 1, Name = "Текстовые", FilesExtension = ".doc .docx .odt .pdf .rtf .tex .txt .wpd" });
-            db.Categories.Add(new Category { Id = 1, Name = "Таблицы", FilesExtension = ".ods .xls .xlsm .xlsx" });
-            db.Categories.Add(new Category { Id = 1, Name = "Архивы", FilesExtension = ".7z .arj .deb .pkg .rar .rpm .tar .gz .z .zip" });
-            db.Categories.Add(new Category { Id = 1, Name = "Презентации", FilesExtension = ".key .odp .pps .ppt .pptx" });
-            db.Categories.Add(new Category { Id = 1, Name = "Others", FilesExtension = "" });
+            db.Categories.Add(new Category { Id = 2, Name = "Аудио", FilesExtension = ".aif .cda .mid .midi .mp3 .mpa .ogg .wav .wma .wpl" });
+            db.Categories.Add(new Category { Id = 3, Name = "Видео", FilesExtension = ".3g2 .3gp .avi .flv .h264 .m4v .mkv .mov .mp4 .mpg .mpeg .rm .swf .vob .wmv" });
+            db.Categories.Add(new Category { Id = 4, Name = "Текстовые", FilesExtension = ".doc .docx .odt .pdf .rtf .tex .txt .wpd" });
+            db.Categories.Add(new Category { Id = 5, Name = "Таблицы", FilesExtension = ".ods .xls .xlsm .xlsx" });
+            db.Categories.Add(new Category { Id = 6, Name = "Архивы", FilesExtension = ".7z .arj .deb .pkg .rar .rpm .tar .gz .z .zip" });
+            db.Categories.Add(new Category { Id = 7, Name = "Презентации", FilesExtension = ".key .odp .pps .ppt .pptx" });
+            db.Categories.Add(new Category { Id = 8, Name = "Others", FilesExtension = "" });
 
             base.Seed(db);
         }

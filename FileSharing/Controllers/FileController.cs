@@ -26,16 +26,19 @@ namespace FileSharing.Controllers
             //var files = db.Files.Include(f => f.User).Where(f => f.AccessId == 2);
             ViewBag.FileAccess = db.FileAccesses;
 
-            int pageSize = 3;
+            int pageSize = 10;
             IEnumerable<File> files;
             ViewBag.CategoryId = category;
             if (category == 0)
             {
                 files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
                 ViewBag.CategoryId = category;
+                ViewBag.Files = files.Count();
             }
             else
             {
+                files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2);
+                ViewBag.Files = files.Count();
                 files = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.AccessId == 2 && f.CategoryId == category);
                 ViewBag.CategoryId = category;
             }
@@ -79,7 +82,7 @@ namespace FileSharing.Controllers
                 ViewBag.StatusMessage = "Совпадения не найдены";
             }
             ViewBag.Categories = db.Categories;
-            int pageSize = 3;
+            int pageSize = 10;
             IEnumerable<File> filesPerPage = files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = files.Count() };
             PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
@@ -142,7 +145,7 @@ namespace FileSharing.Controllers
                     }
                     if (file.CategoryId == 0)
                     {
-                        file.CategoryId = 2;
+                        file.CategoryId = 8;
                     }
 
                     //db.SaveChanges();
@@ -228,10 +231,10 @@ namespace FileSharing.Controllers
             string userName = User.Identity.Name;
             User user = db.Users.FirstOrDefault(u => u.Login == userName);
             bool admin = User.IsInRole("admin");
-            if (user == null || file.User != user && !User.IsInRole("admin"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (user == null || file.User != user && !User.IsInRole("admin"))
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             FileRetentionPeriod fileRetentionPeriod = null;
             fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);

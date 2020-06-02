@@ -22,9 +22,9 @@ namespace FileSharing.Helpers
                 if (i == pageInfo.PageNumber)
                 {
                     tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
+                    tag.AddCssClass("btn-primary btn-lg");
                 }
-                tag.AddCssClass("btn btn-default");
+                tag.AddCssClass("btn btn-default btn-lg");
                 result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());
