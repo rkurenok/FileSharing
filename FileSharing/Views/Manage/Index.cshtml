@@ -191,7 +191,7 @@
                 <div style="margin:0 auto;">
                     <div id="fileManage" class="text-center" style=" margin: auto;">
                         <br />
-                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, htmlAttributes: new { @style = "font-size: 19px; color: #57adf7;" })
+                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, htmlAttributes: new { @style = "font-size: 19px; color: #78c0ff;" })
                         <br />
                         <br />
 
@@ -213,14 +213,49 @@
                                 }
                             }
                         }
-                        <p>@size</p>
+                        <div>@size</div>
                         @Html.DisplayFor(modelItem => item.Date)
                         <br />
                         @(item.AccessId == 1 ? "Закрытый" : "Открытый")
                         <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                         <div class="row">
-                            <br />
+                                <br />
+                            </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                @{
+                                    string link = "";
+                                }
+                                @if (item.FileUniqueKeyId == null)
+                                {
+                                    <br />
+                                    @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-primary", @onmousedown = "" })
+                                    <div id="linkHidden" style="visibility: hidden;">
+                                        <div style="color: #ffffffd9">Ссылка для скачивания:</div>
+                                    </div>
+                                }
+                                @if (item.FileUniqueKeyId != null)
+                                {
+                                    foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                                    {
+                                        if (item.FileUniqueKeyId == uniqueKey.Id)
+                                        {
+                                            link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                            <div id="linkHidden">
+                                                <div style="color: #ffffffd9">Ссылка для скачивания:</div>
+                                                <a id="linkFile" style="color: #a2d4ff" onclick="copyToClipboard()">@link</a>
+                                                <br />
+                                                <div style="color: #ffffffd9">Нажмите на ссылку, чтобы скопировать ее</div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
                         </div>
+                        <div class="row">
+                                <br />
+                            </div>
 
                         <div class="row">
                             <div class="col-md-3">
@@ -233,7 +268,7 @@
                                 @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "" })
                             </div>
                             <div class="col-md-3">
-                                @Html.ActionLink("Удалить", "Delete", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "" })
+                                @Html.ActionLink("Удалить", "Delete", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "viewDiv()" })
                             </div>
                         </div>
 
@@ -283,5 +318,9 @@
             e.clipboardData.setData('text/plain', linkText);
 
         })
+
+        function viewDiv() {
+            document.getElementById("linkHidden").style.display = "block";
+        };
     </script>
 }
