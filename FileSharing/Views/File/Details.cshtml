@@ -62,30 +62,53 @@
                     @Html.DisplayFor(model => model.User.Login)
                 </dd>
             </dl>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @Html.DisplayNameFor(model => model.AccessId)
-                </dt>
+            @if (User.Identity.Name == Model.User.Login)
+            {
+                <dl class="row">
+                    <dt class="col-md-6">
+                        @Html.DisplayNameFor(model => model.AccessId)
+                    </dt>
 
-                <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.SizeInBytes)*@
-                    @(Model.AccessId == 1 ? "private" : "public")
-                </dd>
+                    <dd class="col-md-6">
+                        @*@Html.DisplayFor(model => model.SizeInBytes)*@
+                        @(Model.AccessId == 1 ? "private" : "public")
+                    </dd>
 
-            </dl>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "min-width: 219px" })
-                </dt>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-6">
+                        @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "min-width: 219px" })
+                    </dt>
 
-                <dd class="col-md-6">
-                    @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "min-width: 219px" })
-                </dd>
-            </dl>
-            <div class="row"><br /></div>
-            <dl class="row">
-                @Html.ActionLink("Назад", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
-            </dl>
+                    <dd class="col-md-6">
+                        @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "min-width: 219px" })
+                    </dd>
+                </dl>
+                <div class="row"><br /></div>
+                <dl class="row">
+                    <dt class="col-md-6">
+                        @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
+                    </dt>
+
+                    <dd class="col-md-6">
+                        @Html.ActionLink("Назад", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
+                    </dd>
+                </dl>
+            }
+            else
+            {
+                <div class="row"><br /></div>
+                <div class="row"><br /></div>
+                <dl class="row">
+                    <dt class="col-md-6">
+                        @Html.ActionLink("Скачать", "Download", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "min-width: 219px" })
+                    </dt>
+
+                    <dd class="col-md-6">
+                        @Html.ActionLink("Назад", "Index", "File", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
+                    </dd>
+                </dl>
+            }
         </div>
     </div>
 </div>
