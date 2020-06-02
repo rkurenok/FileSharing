@@ -90,6 +90,10 @@ textarea {
     padding-right: 0;
 }
 
+.col-md-12 {
+    padding-right: 0;
+}
+
 .form-horizontal .form-group {
     margin-left: 0;
 }
@@ -184,6 +188,15 @@ textarea {
 /*#linkHidden {
     display: none;
 }*/
+
+#downloadByLink {
+    position: relative;
+    width: 340px;
+    height: 205px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
 
 .thumbnail {
     background-color: transparent;
