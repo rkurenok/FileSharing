@@ -1,294 +1,197 @@
-﻿@*@model IEnumerable<FileSharing.Models.PageViewModel>*@
-@model FileSharing.Models.PageViewModel
+﻿@model FileSharing.Models.PageViewModel
 @using FileSharing.Helpers
 
 @{
     ViewBag.Title = "Аккаунт";
     string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
 }
-<p class="text-success">@ViewBag.StatusMessage</p>
-<br />
-<h2 id="headerId" class="container">Профиль пользователя</h2>
-<br />
-<br />
 
-<div style="margin:0 auto;">
-    <div id="manageAccount" class="text-center" style=" margin: auto;">
+
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="text-event-success container-fluid">@ViewBag.StatusMessage</div>
+}
+
+<br />
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class=""><a href="#tab-1" class="btn btn-primary" data-toggle="tab">Профиль</a></li>
+        <li class="active"><a href="#tab-2" data-toggle="tab" class="btn btn-primary">Мои файлы</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade" id="tab-1">
         <br />
-        <div>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @*@Html.DisplayNameFor(model => model.Email)*@
-                    Email
-                </dt>
+        <h2 id="headerId" class="container">Профиль</h2>
+        <br />
+        <br />
+        <div style="margin:0 auto;">
+            <div id="manageAccount" class="text-center" style=" margin: auto;">
+                <br />
+                <div>
+                    <dl class="row">
+                        <dt class="col-md-6">
+                            Email
+                        </dt>
 
-                <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.Email)*@
-                    @ViewBag.User.Email
-                </dd>
-            </dl>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @*@Html.DisplayNameFor(model => model.Login)*@
-                    Логин
-                </dt>
+                        <dd class="col-md-6">
+                            @ViewBag.User.Email
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="col-md-6">
+                            Логин
+                        </dt>
 
-                <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.Login)*@
-                    @ViewBag.User.Login
-                </dd>
-            </dl>
-            @*<dt>
-                    @Html.DisplayNameFor(model => model.Password)
-                </dt>
+                        <dd class="col-md-6">
+                            @ViewBag.User.Login
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="col-md-6">
+                            Возраст
+                        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Password) &nbsp; &nbsp; @Html.ActionLink("Смена пароля", "ChangePassword")
-                </dd>*@
-            <dl class="row">
-                <dt class="col-md-6">
-                    @*@Html.DisplayNameFor(model => model.Age)*@
-                    Возраст
-                </dt>
+                        <dd class="col-md-6">
+                            @ViewBag.User.Age
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="col-md-6">
+                            Пол
+                        </dt>
 
-                <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.Age)*@
-                    @ViewBag.User.Age
-                </dd>
-            </dl>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @*@Html.DisplayNameFor(model => model.Gender)*@
-                    Пол
-                </dt>
+                        <dd class="col-md-6">
+                            @ViewBag.User.Gender
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="col-md-6">
+                            @Html.ActionLink("Редактировать профиль", "EditAccount", null, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
+                        </dt>
 
-                <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.Gender)*@
-                    @ViewBag.User.Gender
-                </dd>
-
-                @*<dt>
-                        @Html.DisplayNameFor(model => model.RoleId)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.RoleId)
-                    </dd>*@
-                @*@Html.ActionLink("Смена пароля", "ChangePassword")*@
-
-            </dl>
-            <dl class="row">
-                <dt class="col-md-6">
-                    @Html.ActionLink("Редактировать профиль", "EditAccount", null, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
-                </dt>
-
-                <dd class="col-md-6">
-                    @Html.ActionLink("Сменить пароль", "ChangePassword", null, htmlAttributes: new { @class = "btn btn-info", @style = "min-width: 219px" })
-                </dd>
-            </dl>
-            <div class="row"><br /></div>
-            <dl class="row">
-                @Html.ActionLink("На главную", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
-            </dl>
+                        <dd class="col-md-6">
+                            @Html.ActionLink("Сменить пароль", "ChangePassword", null, htmlAttributes: new { @class = "btn btn-info", @style = "min-width: 219px" })
+                        </dd>
+                    </dl>
+                    <div class="row"><br /></div>
+                    <dl class="row">
+                        @Html.ActionLink("На главную", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-@*<table class="table">
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Размер
-            </th>
-            <th>
-                Автор
-            </th>
-            <th>
-                Дата загрузки
-            </th>
-            <th>
-                Доступ к файлу
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.Files)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, null)
-                </td>
-                <td>
-                    @{
-                        string size = string.Format("{0} Б", item.SizeInBytes);
-                        double sizeInKBytes, sizeInMBytes, sizeInGBytes;
-                        if (item.SizeInBytes >= 1024)
-                        {
-                            sizeInKBytes = (double)item.SizeInBytes / 1024;
-                            size = string.Format("{0:N2} КБ", sizeInKBytes);
-                            if (sizeInKBytes >= 1024)
-                            {
-                                sizeInMBytes = (double)sizeInKBytes / 1024;
-                                size = string.Format("{0:N2} МБ", sizeInMBytes);
-                                if (sizeInMBytes >= 1024)
-                                {
-                                    sizeInGBytes = (double)sizeInMBytes / 1024;
-                                    size = string.Format("{0:N2} ГБ", sizeInGBytes);
-                                }
-                            }
-                        }
-                    }
-                    @size
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Login)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @(item.AccessId == 1 ? "private" : "public")
-                </td>
-                <td>
-                    @Html.ActionLink("EditFile", "EditFile", new { fileId = item.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null) |
-                    @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, null) |
-                    @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = item.Id }, null)
-                    @{
-                        string link;
-                    }
-                    @if (item.FileUniqueKeyId != null)
-                    {
-                        foreach (var uniqueKey in ViewBag.FileUniqueKeys)
-                        {
-                            if (item.FileUniqueKeyId == uniqueKey.Id)
-                            {
-                                link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
-                                <a id="linkFile" onclick="copyToClipboard()">@link</a>
+    <div class="tab-pane fade in active" id="tab-2">
+        <h2 id="headerId" class="container">Мои файлы</h2>
+        <br />
+        <div class="row" style="">
+            @foreach (var item in Model.Files)
+            {
+                <div class="col-md-3">
+                    <div class="thumbnail pull-left">
+                        <div style="margin:0 auto;">
+                            <div id="fileManage" class="text-center" style=" margin: auto;">
                                 <br />
-                                <div>Нажмите на ссылку, чтобы скопировать ее</div>
-                            }
-                        }
-                    }
-                </td>
-            </tr>
-        }
-
-    </table>*@
-
-<br />
-<h2 id="headerId" class="container">Ваши файлы</h2>
-<br />
-<br />
-
-<div class="row">
-    @foreach (var item in Model.Files)
-    {
-        <div class="col-md-3">
-            <div class="thumbnail pull-left">
-                <div style="margin:0 auto;">
-                    <div id="fileManage" class="text-center" style=" margin: auto;">
-                        <br />
-                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, htmlAttributes: new { @style = "font-size: 19px; color: #78c0ff;" })
-                        <br />
-                        <br />
-
-                        @{string size = string.Format("{0} Б", item.SizeInBytes);
-                            double sizeInKBytes, sizeInMBytes, sizeInGBytes;
-                            if (item.SizeInBytes >= 1024)
-                            {
-                                sizeInKBytes = (double)item.SizeInBytes / 1024;
-                                size = string.Format("{0:N2} КБ", sizeInKBytes);
-                                if (sizeInKBytes >= 1024)
-                                {
-                                    sizeInMBytes = (double)sizeInKBytes / 1024;
-                                    size = string.Format("{0:N2} МБ", sizeInMBytes);
-                                    if (sizeInMBytes >= 1024)
-                                    {
-                                        sizeInGBytes = (double)sizeInMBytes / 1024;
-                                        size = string.Format("{0:N2} ГБ", sizeInGBytes);
-                                    }
-                                }
-                            }
-                        }
-                        <div>@size</div>
-                        @Html.DisplayFor(modelItem => item.Date)
-                        <br />
-                        @(item.AccessId == 1 ? "Закрытый" : "Открытый")
-                        <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
-                        <div class="row">
+                                @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, htmlAttributes: new { @style = "font-size: 19px; color: #78c0ff;" })
                                 <br />
-                            </div>
+                                <br />
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                @{
-                                    string link = "";
-                                }
-                                @if (item.FileUniqueKeyId == null)
-                                {
-                                    <br />
-                                    @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-primary", @onmousedown = "" })
-                                    <div id="linkHidden" style="visibility: hidden;">
-                                        <div style="color: #ffffffd9">Ссылка для скачивания:</div>
-                                    </div>
-                                }
-                                @if (item.FileUniqueKeyId != null)
-                                {
-                                    foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                                @{string size = string.Format("{0} Б", item.SizeInBytes);
+                                    double sizeInKBytes, sizeInMBytes, sizeInGBytes;
+                                    if (item.SizeInBytes >= 1024)
                                     {
-                                        if (item.FileUniqueKeyId == uniqueKey.Id)
+                                        sizeInKBytes = (double)item.SizeInBytes / 1024;
+                                        size = string.Format("{0:N2} КБ", sizeInKBytes);
+                                        if (sizeInKBytes >= 1024)
                                         {
-                                            link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
-                                            <div id="linkHidden">
-                                                <div style="color: #ffffffd9">Ссылка для скачивания:</div>
-                                                <a id="linkFile" style="color: #a2d4ff" onclick="copyToClipboard()">@link</a>
-                                                <br />
-                                                <div style="color: #ffffffd9">Нажмите на ссылку, чтобы скопировать ее</div>
-                                            </div>
+                                            sizeInMBytes = (double)sizeInKBytes / 1024;
+                                            size = string.Format("{0:N2} МБ", sizeInMBytes);
+                                            if (sizeInMBytes >= 1024)
+                                            {
+                                                sizeInGBytes = (double)sizeInMBytes / 1024;
+                                                size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                                            }
                                         }
                                     }
                                 }
-                            </div>
-                        </div>
-                        <div class="row">
+                                <div>@size</div>
+                                @Html.DisplayFor(modelItem => item.Date)
                                 <br />
-                            </div>
+                                @(item.AccessId == 1 ? "Закрытый" : "Открытый")
+                                <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
+                                <div class="row">
+                                    <br />
+                                </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                @Html.ActionLink("Скачать", "Download", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "background-color: #5cb85cbf" })
-                            </div>
-                            <div class="col-md-3">
-                                @Html.ActionLink("Детали", "Details", "File", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info", @style = "background-color: #" })
-                            </div>
-                            <div class="col-md-3">
-                                @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "" })
-                            </div>
-                            <div class="col-md-3">
-                                @Html.ActionLink("Удалить", "Delete", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "viewDiv()" })
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @{
+                                            string link = "";
+                                        }
+                                        @if (item.FileUniqueKeyId == null)
+                                        {
+                                            <br />
+                                            @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-primary", @onmousedown = "" })
+                                            <div id="linkHidden" style="visibility: hidden;">
+                                                <div style="color: #ffffffd9">Ссылка для скачивания:</div>
+                                            </div>
+                                        }
+                                        @if (item.FileUniqueKeyId != null)
+                                        {
+                                            foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                                            {
+                                                if (item.FileUniqueKeyId == uniqueKey.Id)
+                                                {
+                                                    link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                                    <div id="linkHidden">
+                                                        <div style="color: #ffffffd9">Ссылка для скачивания:</div>
+                                                        <a id="linkFile" style="color: #a2d4ff" onclick="copyToClipboard()">@link</a>
+                                                        <br />
+                                                        <div style="color: #ffffffd9">Нажмите на ссылку, чтобы скопировать ее</div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br />
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        @Html.ActionLink("Скачать", "Download", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "background-color: #5cb85cbf" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.ActionLink("Детали", "Details", "File", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info", @style = "background-color: #" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.ActionLink("Удалить", "Delete", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "viewDiv()" })
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
                     </div>
+
                 </div>
-
-            </div>
-
+            }
         </div>
-    }
-</div>
 
-<div class="container-fluid text-center">
-    <div class="row">
-        <div class="btn-group btn-group-lg">
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+        <div class="container-fluid text-center">
+            <div class="row">
+                <div class="btn-group btn-group-lg">
+                    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<br />
 
 @section scripts {
     <script type="text/javascript">

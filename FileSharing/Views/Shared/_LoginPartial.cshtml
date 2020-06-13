@@ -8,27 +8,25 @@
             @if (User.IsInRole("admin"))
             {
                 <li>
-                    @Html.ActionLink("Админ-панель", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
+                    @Html.ActionLink("Админ-панель", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin", @style = "color: #e0e0e0;" })
                 </li>
             }
             <li class="dropdown" id="dropdownMenuLink">
-                @*@Html.ActionLink("Здравствуйте, " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #222222;">@User.Identity.Name <b class="caret"></b></a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background-color: #333333;">
-                    <li>@Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style= "color: #9d9d9d;", @onmouseover = "this.style.color='#fff'; this.style.backgroundColor='#333333'", @onmouseout = "this.style.color='#9d9d9d';" })</li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color: /*#222222*/#c1c1c100; color: #e0e0e0;">@User.Identity.Name <b class="caret"></b></a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background-color: /*#333333*/#c1c1c13b;">
+                    <li>@Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color: #9d9d9d;", @onmouseover = "this.style.color='#fff'; this.style.backgroundColor='#c1c1c100'", @onmouseout = "this.style.color='#9d9d9d';" })</li>
                     <li class="divider"></li>
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()" style= "color: #9d9d9d;" onmouseover = "this.style.color='#fff'; this.style.backgroundColor='#333333'" onmouseout = "this.style.color='#9d9d9d';">Выйти</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" style="color: #9d9d9d;" onmouseover="this.style.color='#fff'; this.style.backgroundColor='#c1c1c100'" onmouseout="this.style.color='#9d9d9d';">Выйти</a></li>
                 </ul>
             </li>
-            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>*@
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @style = "color: #e0e0e0;" })</li>
+        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @style = "color: #e0e0e0;" })</li>
     </ul>
 }
 

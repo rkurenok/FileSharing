@@ -1,16 +1,5 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-    @*<div class="containerTest">
-            @using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
-            {
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.TextBox("serachFile", null, new { @placeholder = "Найти...", @id = "inputTextSearch" })
-                    <div class="search"></div>
-                </li>
-            </ul>
-            }
-        </div>*@
     using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
     {
         <li class="containerTest">
@@ -19,7 +8,3 @@
         </li>
     }
 }
-    @*<div class="container">
-            <input type="text" placeholder="Search...">
-            <div class="search"></div>
-        </div>*@

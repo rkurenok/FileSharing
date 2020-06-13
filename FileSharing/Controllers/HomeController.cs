@@ -35,11 +35,11 @@ namespace FileSharing.Controllers
             return View();
         }
 
-        public string About()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return "Это увидит только администратор";
+            return View();
         }
 
         public ActionResult Contact()
@@ -48,5 +48,6 @@ namespace FileSharing.Controllers
 
             return View();
         }
+
     }
 }

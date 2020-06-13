@@ -41,19 +41,33 @@ textarea {
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    /*color: #4cff00;*/
     background-color: #ffd800;
 }
 
-#upload {
+.nav-tabs > li.active {
+    background-color: #286090;
+}
+
+.nav-tabs > li :hover {
+    background-color: #286090;
+}
+
+#upload1 {
     position:relative;
     width: 471px;
     height: 542px;
     background-color: #ffabe70f;
     border: 0px solid #fff;
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
-    /*border-style: dashed;*/
-    /*border-color: #2a5a9c;*/
+}
+
+#upload2 {
+    position: relative;
+    width: 471px;
+    height: 340px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
 #logIn {
@@ -74,6 +88,28 @@ textarea {
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: red;
+}
+
+.panel {
+    background-color: #0e20384d;
+    border-color: #6b535300;
+}
+
+table-bordered {
+    border: 1px solid #0e20384d;
+}
+
+td, th {
+    border: 1px solid #6b535300; /* задаем сплошную границу размером 1 пиксель цвета #F50 */
+    padding: 19px; /* устанавливаем внутренние отступы для всех сторон */
+}
+
+table a {
+    color: #9ddbffd4;
+}
+
 .row {
     margin-right: 0;
 }
@@ -87,6 +123,10 @@ textarea {
 }
 
 .col-md-3 {
+    padding-right: 0;
+}
+
+.col-md-2 {
     padding-right: 0;
 }
 
@@ -114,6 +154,15 @@ textarea {
     background-color: #d9534fcf;
 }
 
+.text-event-success {
+    background-color: #00ff2547;
+    color: #c4e9ffd4;
+    height: 50px;
+    margin: auto;
+    line-height: 50px;
+    font-size: 16px;
+}
+
 #manageAccount {
     position: relative;
     width: 570px;
@@ -121,6 +170,10 @@ textarea {
     background-color: #ffabe70f;
     border: 0px solid #fff;
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+#fileManage:hover {
+    transform: scale(1.01);
 }
 
 #editAccount {
@@ -158,6 +211,15 @@ textarea {
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
+#editUserRole {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
 #fileDetails {
     position: relative;
     width: 570px;
@@ -176,23 +238,32 @@ textarea {
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
+    #fileIndex:hover {
+        transform: scale(1.05); /*вот так*/
+    }
+
 #fileManage {
     position: relative;
     width: 450px;
+    height: 290px;
+    background-color: #ffabe70f;
+    border: 0px solid #fff;
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+#accountDetailsAdmin {
+    position: relative;
+    width: 550px;
     height: 300px;
     background-color: #ffabe70f;
     border: 0px solid #fff;
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
 }
 
-/*#linkHidden {
-    display: none;
-}*/
-
 #downloadByLink {
     position: relative;
     width: 340px;
-    height: 205px;
+    height: 200px;
     background-color: #ffabe70f;
     border: 0px solid #fff;
     box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
@@ -239,57 +310,6 @@ textarea {
         background: #0a0eb1;
     }
 
-/** {
-    box-sizing: border-box;
-}
-
-#serachFile {
-    position: relative;
-    width: 300px;
-    margin: 0 auto;
-    height: 42px;
-}
-
-#inputTextSearch {
-    height: 42px;
-    width: 0;
-    padding: 15px 42px 15px 15px;
-    border: none;
-    border-bottom: 2px solid transparent;
-    outline: none;
-    background: transparent;
-    transition: .4s cubic-bezier(0, 0.8, 0, 1);
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-}
-
-    #inputTextSearch:focus {
-        width: 300px;
-        z-index: 1;
-        border-bottom: 2px solid #F9F0DA;
-    }
-
-#buttonSearch {
-    background: #683B4D;
-    border: none;
-    height: 42px;
-    width: 42px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-}
-
-    #buttonSearch:before {
-        content: "\f002";
-        font-family: FontAwesome;
-        font-size: 16px;
-        color: #F9F0DA;
-    }*/
-
-
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 .containerTest {
     position: absolute;
@@ -310,7 +330,7 @@ textarea {
     left: 0;
     width: 50px;
     height: 50px;
-    background: #de4242;
+    background: #9660ff70;
     border-radius: 50%;
     transition: all 1s;
     z-index: 4;

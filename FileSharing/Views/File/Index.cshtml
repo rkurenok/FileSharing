@@ -1,11 +1,14 @@
-﻿@*@model IEnumerable<FileSharing.Models.PageViewModel>*@
-@model FileSharing.Models.PageViewModel
+﻿@model FileSharing.Models.PageViewModel
 @using FileSharing.Helpers
 
 @{
     ViewBag.Title = "Файлы";
 }
-<p class="text-success">@ViewBag.StatusMessage</p>
+
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="text-event-success container-fluid">@ViewBag.StatusMessage</div>
+}
 
 <h2 id="headerId" class="container">Список файлов</h2>
 <br />
@@ -20,19 +23,24 @@
         {
             <a href='@Url.Action("Index", "File")?category=0' class="btn btn-block btn-primary btn-lg" style="max-width: 345px">Все <span class="badge" style="margin-right: 1px;">@ViewBag.Files</span></a>
         }
-        @* @Html.ActionLink("Все", "Index", new { category = 0, page = 1 }, new { @style = "max-width: 345px", @id = "idCategory", @class = "btn btn-block btn-primary btn-lg" + (ViewBag.CategoryId == 0 ? " active" : ViewBag.CategoryId == null ? " active" : "") })*@
         @foreach (FileSharing.Models.Category category in ViewBag.Categories)
         {
             if (category.Id == ViewBag.CategoryId)
             {
+                if (category.Name == "Others")
+                {
+                    category.Name = "Другие";
+                }
                 <a href='@Url.Action("Index", "File")?category=@category.Id&page=1' class="btn btn-block btn-primary btn-lg active" style="max-width: 345px">@category.Name <span class="badge">@category.Files.Count</span></a>
             }
             else
             {
+                if (category.Name == "Others")
+                {
+                    category.Name = "Другие";
+                }
                 <a href='@Url.Action("Index", "File")?category=@category.Id&page=1' class="btn btn-block btn-primary btn-lg" style="max-width: 345px">@category.Name <span class="badge">@category.Files.Count</span></a>
             }
-            @*@Html.ActionLink(category.Name, "Index", new { category = category.Id, page = 1 }, new { @style = "max-width: 345px", @id = "idCategory", @class = "btn btn-block btn-primary btn-lg" + (category.Id == ViewBag.CategoryId ? " active" : "") })*@
-            @*<span class="badge">10</span>*@
         }
     </div>
     @foreach (var item in Model.Files)
@@ -93,81 +101,6 @@
     }
 </div>
 
-
-@*<div>
-        <table class="table">
-            <tr>
-                <th class="text-right">
-                    Id
-                </th>
-                <th>
-                    Название
-                </th>
-                <th>
-                    Размер
-                </th>
-                <th>
-                    Автор
-                </th>
-                <th>
-                    Дата загрузки
-                </th>
-                <th>
-                    Доступ к файлу
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.Files)
-            {
-                <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </th>
-                    <td>
-                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, null)
-                    </td>
-                    <td>
-                        @{
-                            string size = string.Format("{0} Б", item.SizeInBytes);
-                            double sizeInKBytes, sizeInMBytes, sizeInGBytes;
-                            if (item.SizeInBytes >= 1024)
-                            {
-                                sizeInKBytes = (double)item.SizeInBytes / 1024;
-                                size = string.Format("{0:N2} КБ", sizeInKBytes);
-                                if (sizeInKBytes >= 1024)
-                                {
-                                    sizeInMBytes = (double)sizeInKBytes / 1024;
-                                    size = string.Format("{0:N2} МБ", sizeInMBytes);
-                                    if (sizeInMBytes >= 1024)
-                                    {
-                                        sizeInGBytes = (double)sizeInMBytes / 1024;
-                                        size = string.Format("{0:N2} ГБ", sizeInGBytes);
-                                    }
-                                }
-                            }
-                        }
-                        @size
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.Login)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @(item.AccessId == 1 ? "private" : "public")
-                    </td>
-                    <td>
-                        @Html.ActionLink("EditFile", "Manage", new { id = item.Id }, null) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Скачать", "Download", new { fileId = item.Id })
-                    </td>
-                </tr>
-            }
-
-        </table>
-    </div>*@
 <div class="container-fluid text-center">
     <div class="row">
         <div class="btn-group btn-group-lg">
@@ -179,36 +112,5 @@
 
 @section Scripts {
     <script type="text/javascript">
-        @*var div0 = document.getElementById('idCategory')[0],
-            div1 = document.getElementById('idCategory')[1],
-            div2 = document.getElementById('idCategory')[2],
-            div3 = document.getElementById('idCategory')[3],
-            div4 = document.getElementById('idCategory')[4],
-            div5 = document.getElementById('idCategory')[5],
-            div6 = document.getElementById('idCategory')[6],
-            div7 = document.getElementById('idCategory')[7],
-            category_Value0 = "Все",
-            category_Value1 = "Изображения",
-            category_Value2 = "Аудио",
-            category_Value3 = "Видео",
-            category_Value4 = "Текстовые",
-            category_Value5 = "Таблицы",
-            category_Value6 = "Архивы",
-            category_Value7 = "Презентации",
-            category_Value8 = "Презентации",
-            number_span = document.createElement('span');
-        number_span.className = "badge";
-
-        number_span.innerHTML = @Model.Files.Count();
-        div0.innerHTML = number_span.outerHTML;
-        div0.innerHTML = category_Value0 + " ЫЫЫЫЫЫ " + '@(ViewBag.CategoryCount[0])' + number_span.outerHTML;
-        div1.innerHTML = category_Value1 + " ЫЫЫЫЫ" + @ViewBag.CategoryCount[0] + number_span.outerHTML;
-        div2.innerHTML = category_Value2 + " " + @ViewBag.CategoryCount[1];
-        div3.innerHTML = category_Value3 + " " + @ViewBag.CategoryCount[2];
-        div4.innerHTML = category_Value4 + " " + @ViewBag.CategoryCount[3];
-        div5.innerHTML = category_Value5 + " " + @ViewBag.CategoryCount[4];
-        div6.innerHTML = category_Value6 + " " + @ViewBag.CategoryCount[5];
-        div7.innerHTML = category_Value7 + " " + @ViewBag.CategoryCount[6];*@
-
     </script>
 }

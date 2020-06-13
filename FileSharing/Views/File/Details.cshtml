@@ -6,7 +6,9 @@
 }
 
 <br />
-<h2 id="headerId">Детали файла</h2>
+<div class="container">
+    <h2 id="headerId">Детали файла</h2>
+</div>
 <br />
 <br />
 
@@ -30,7 +32,6 @@
                 </dt>
 
                 <dd class="col-md-6">
-                    @*@Html.DisplayFor(model => model.SizeInBytes)*@
                     @{
                         string size = string.Format("{0} Б", Model.SizeInBytes);
                         double sizeInKBytes, sizeInMBytes, sizeInGBytes;
@@ -55,7 +56,6 @@
             </dl>
             <dl class="row">
                 <dt class="col-md-6">
-                    @*@Html.DisplayNameFor(model => model.UserId)*@
                     Автор
                 </dt>
 
@@ -71,7 +71,6 @@
                     </dt>
 
                     <dd class="col-md-6">
-                        @*@Html.DisplayFor(model => model.SizeInBytes)*@
                         @(Model.AccessId == 1 ? "Закрытый" : "Открытый")
                         <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
                     </dd>
@@ -83,13 +82,14 @@
                     </dt>
 
                     <dd class="col-md-6">
-                        @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "min-width: 219px" })
+
+                        @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
                     </dd>
                 </dl>
                 <div class="row"><br /></div>
                 <dl class="row">
                     <dt class="col-md-6">
-                        @Html.ActionLink("Изменить", "EditFile", "Manage", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
+                        @Html.ActionLink("Удалить", "Delete", new { fileId = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "min-width: 219px" })
                     </dt>
 
                     <dd class="col-md-6">

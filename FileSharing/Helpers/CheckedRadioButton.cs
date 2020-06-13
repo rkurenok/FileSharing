@@ -20,7 +20,6 @@ namespace FileSharing.Helpers
         {
             var func = expression.Compile();
             var attributes = new RouteValueDictionary(htmlAttributes);
-            //var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             if ((object)func(htmlHelper.ViewData.Model) == value)
             {
                 attributes["checked"] = "checked";
