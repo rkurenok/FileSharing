@@ -21,10 +21,8 @@ namespace FileSharing.Controllers
             ViewBag.StatusMessage =
                 adminMessage == AdminMessageId.DeleteAccount ? "Пользователь " + userName + " был удален"
                 : "";
-            //IEnumerable<User> users = db.Users;
 
             string property = "";
-            //User user = db.Users.FirstOrDefault(u => u.Id == id);
             User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
             PropertyInfo[] properties = user.GetType().GetProperties();
             foreach (PropertyInfo prop in properties)
@@ -37,11 +35,8 @@ namespace FileSharing.Controllers
             SelectList items = new SelectList(new List<string>(masProperty));
             ViewData["Items"] = items;
             ViewBag.Item = item;
-            //int pageSize = 3;
-            //IEnumerable<User> usersPerPage = db.Users.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            int pageSize = 3;
-            //IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            int pageSize = 10;
             IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Include(u => u.Files).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             switch (item)
@@ -76,66 +71,8 @@ namespace FileSharing.Controllers
 
             ViewBag.Files = files;
 
-
-            //ViewBag.UserPerPage = usersPerPage;
-            //ViewData["pvm"] = pvm;
-
             return View(pvm);
         }
-
-        //[HttpPost]
-        //public ActionResult Index(string item, int page = 1)
-        //{
-        //    string property = "";
-        //    //User user = db.Users.FirstOrDefault(u => u.Id == id);
-        //    User user = new User();
-        //    PropertyInfo[] properties = user.GetType().GetProperties();
-        //    foreach (PropertyInfo prop in properties)
-        //    {
-        //        property += prop.Name + " ";
-        //    }
-
-        //    string[] masProperty = property.Split(' ');
-
-        //    SelectList items = new SelectList(new List<string>(masProperty));
-        //    ViewData["Items"] = items;
-
-        //    int pageSize = 3;
-        //    IEnumerable<User> usersPerPage = null;
-
-        //    switch (item)
-        //    {
-        //        case "Id":
-        //            usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        case "Email":
-        //            usersPerPage = db.Users.OrderBy(u => u.Email).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        case "Login":
-        //            usersPerPage = db.Users.OrderBy(u => u.Login).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        case "Age":
-        //            usersPerPage = db.Users.OrderBy(u => u.Age).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        case "Gender":
-        //            usersPerPage = db.Users.OrderBy(u => u.Gender).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        case "RoleId":
-        //            usersPerPage = db.Users.OrderBy(u => u.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //        default:
-        //            usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //            break;
-        //    }
-
-        //    //int pageSize = 3;
-        //    //IEnumerable<User> usersPerPage = db.Users.OrderBy(u => u.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //    PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Users.Count() };
-        //    PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Users = usersPerPage };
-
-        //    return View(pvm);
-        //}
-
 
         public ActionResult AccountDetails(AdminMessageId? adminMessage, string userName, int? userId, int page = 1)
         {
@@ -151,7 +88,7 @@ namespace FileSharing.Controllers
 
             ViewBag.Files = files;
 
-            int pageSize = 3;
+            int pageSize = 8;
 
             IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Include(f => f.User).Where(f => f.UserId == user.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -160,16 +97,6 @@ namespace FileSharing.Controllers
 
             ViewBag.User = user;
 
-            //foreach (File file in files)
-            //{
-            //    FileRetentionPeriod fileRetentionPeriod = null;
-            //    fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
-            //    DateTime creation = file.Date;
-            //    if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
-            //    {
-            //        return RedirectToAction("Delete", "File", new { fileId = file.Id });
-            //    }
-            //}
             if (user.Login == User.Identity.Name)
             {
                 return RedirectToAction("Index", "Manage");
@@ -181,7 +108,6 @@ namespace FileSharing.Controllers
         public ActionResult DeleteAccount(int userId)
         {
             User user = db.Users.FirstOrDefault(u => u.Id == userId);
-            //object routeValues = null;
             db.Users.Remove(user);
             db.SaveChanges();
 
@@ -196,6 +122,7 @@ namespace FileSharing.Controllers
 
             ViewBag.Login = user.Login;
             ViewBag.RoleId = user.RoleId;
+            ViewBag.UserId = userId;
 
             return View();
         }
@@ -238,15 +165,10 @@ namespace FileSharing.Controllers
             return result;
         }
 
-        public ActionResult FileList(FileMessageId? fileMessage, string fileName, int page = 1)
+        public ActionResult FileList(string item, FileMessageId? fileMessage, string fileName, int page = 1)
         {
             ViewBag.StatusMessage = fileMessage == FileMessageId.DeleteFile ? "Файл " + fileName + " был удален"
                 : "";
-            int pageSize = 3;
-            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Files.Count() };
-            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
 
             var users = db.Users;
             ViewBag.Users = users;
@@ -262,6 +184,80 @@ namespace FileSharing.Controllers
                     return RedirectToAction("Delete", "File", new { fileId = file.Id });
                 }
             }
+
+            string property = "";
+            File file1 = files.FirstOrDefault();
+            PropertyInfo[] properties = file1.GetType().GetProperties();
+            foreach (PropertyInfo prop in properties)
+            {
+                property += prop.Name + " ";
+            }
+
+            string[] masProperty = property.Split(' ');
+
+            string[] output = new string[8];
+            int counter = 0;
+
+            for (int i = 0; i < masProperty.Length; i++)
+            {
+                if (masProperty[i] == "FileUniqueKey") continue;
+                if (masProperty[i] == "FileUniqueKeyId") continue;
+                if (masProperty[i] == "FileRententionPeriodId") continue;
+                if (masProperty[i] == "FileRetentionPeriod") continue;
+                if (masProperty[i] == "OriginalName") continue;
+                if (masProperty[i] == "User") continue;
+                if (masProperty[i] == "Access") continue;
+                if (masProperty[i] == "Category") continue;
+                output[counter] = masProperty[i];
+                counter++;
+            }
+
+            SelectList items = new SelectList(new List<string>(output));
+            ViewData["Items"] = items;
+            ViewBag.Item = item;
+
+            int pageSize = 10;
+            IEnumerable<File> filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            switch (item)
+            {
+                case "Id":
+                    filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "Name":
+                    filesPerPage = db.Files.OrderBy(f => f.Name).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "SizeInBytes":
+                    filesPerPage = db.Files.OrderBy(f => f.SizeInBytes).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "Date":
+                    filesPerPage = db.Files.OrderBy(f => f.Date).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "AccessId":
+                    filesPerPage = db.Files.OrderBy(f => f.AccessId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "Access":
+                    filesPerPage = db.Files.OrderBy(f => f.AccessId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "UserId":
+                    filesPerPage = db.Files.OrderBy(f => f.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "User":
+                    filesPerPage = db.Files.OrderBy(f => f.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "CategoryId":
+                    filesPerPage = db.Files.OrderBy(f => f.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                case "Category":
+                    filesPerPage = db.Files.OrderBy(f => f.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+                default:
+                    filesPerPage = db.Files.OrderBy(f => f.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    break;
+            }
+
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.Files.Count() };
+            PageViewModel pvm = new PageViewModel { PageInfo = pageInfo, Files = filesPerPage };
 
             return View(pvm);
         }

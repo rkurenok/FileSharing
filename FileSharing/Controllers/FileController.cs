@@ -22,8 +22,6 @@ namespace FileSharing.Controllers
         // GET: File
         public ActionResult Index(int? category = 0, int page = 1)
         {
-            //IEnumerable<File> files = db.Files.ToList();
-            //var files = db.Files.Include(f => f.User).Where(f => f.AccessId == 2);
             ViewBag.FileAccess = db.FileAccesses;
 
             int pageSize = 10;
@@ -58,7 +56,7 @@ namespace FileSharing.Controllers
                     return RedirectToAction("Delete", "File", new { fileId = file.Id });
                 }
             }
-
+            ViewBag.StatusMessage = "";
             ViewBag.Categories = db.Categories;
 
             return View(pvm);
@@ -147,42 +145,9 @@ namespace FileSharing.Controllers
                     {
                         file.CategoryId = 8;
                     }
-
-                    //db.SaveChanges();
                 }
                 db.SaveChanges();
                 routeValues = new { fileMessage = FileMessageId.UploadFile, fileId = file.Id };
-                // получаем имя файла
-                //fileName = System.IO.Path.GetFileName(upload.FileName);
-                //// сохраняем файл в папку Files в проекте
-                //upload.SaveAs(Server.MapPath("~/Content/Files/" + fileName));
-
-                //int? userId = null;
-                //System.IO.FileInfo file1 = new System.IO.FileInfo(INTERNAL_FILE_PATH + fileName);
-                //long size = file1.Length;
-                //File file = null;
-
-                //// добавляем файл в бд
-                //User user = null;
-                //if (User.Identity.IsAuthenticated)
-                //{
-                //    user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
-                //    userId = user.Id;
-                //}
-                //file = db.Files.Add(new File { Name = fileName, OriginalName = fileName, SizeInBytes = size, UserId = userId, Date = DateTime.Now });
-                //if (access == "private")
-                //{
-                //    file.AccessId = 1;
-                //}
-                //else
-                //{
-                //    file.AccessId = 2;
-                //}
-                //if (user != null)
-                //{
-                //    user.Files.Add(file);
-                //}
-                //db.SaveChanges();
             }
             return RedirectToAction("Index", "Home", routeValues);
         }
@@ -236,10 +201,6 @@ namespace FileSharing.Controllers
             string userName = User.Identity.Name;
             User user = db.Users.FirstOrDefault(u => u.Login == userName);
             bool admin = User.IsInRole("admin");
-            //if (user == null || file.User != user && !User.IsInRole("admin"))
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
 
             FileRetentionPeriod fileRetentionPeriod = null;
             fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
@@ -255,8 +216,6 @@ namespace FileSharing.Controllers
         public FilePathResult Download(int fileId)
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
-            //User user = db.Users.FirstOrDefault(u => u.Login == User.Identity.Name);
-            //if (User.Identity.IsAuthenticated && file.UserId == user.Id || User.IsInRole("admin")) { }
 
             // Имя файла (необязательно)
             string fileName = file.OriginalName;
@@ -264,17 +223,6 @@ namespace FileSharing.Controllers
             string file_path = Server.MapPath("~/Content/Files/" + fileName);
             // Тип файла - content-type
             string file_type = "application/octet-stream";
-
-            //foreach (File file in files)
-            //{
-            //    FileRetentionPeriod fileRetentionPeriod = null;
-            //    fileRetentionPeriod = db.FileRetentionPeriods.FirstOrDefault(f => f.Id == file.FileRententionPeriodId);
-            //    DateTime creation = file.Date;
-            //    if ((DateTime.Now - creation).TotalSeconds > fileRetentionPeriod.Value)
-            //    {
-            //        return RedirectToAction("Delete", "File", new { fileId = file.Id });
-            //    }
-            //}
 
             return File(file_path, file_type, fileName);
         }
@@ -296,6 +244,7 @@ namespace FileSharing.Controllers
         public ActionResult GetFileDownloadLink(int fileId)
         {
             File file = db.Files.FirstOrDefault(f => f.Id == fileId);
+            var url = "";
             if (file.FileUniqueKeyId == null)
             {
                 Constant saltConstant = db.Constants.First();
@@ -308,14 +257,17 @@ namespace FileSharing.Controllers
                 db.SaveChanges();
                 file.FileUniqueKeyId = uniqueKey.Id;
                 db.SaveChanges();
+                url = Request.ServerVariables["HTTP_REFERER"];
             }
 
-            if (!User.Identity.IsAuthenticated)
+            if (url.Contains("https://localhost:44301/Manage"))
             {
-                return RedirectToAction("Index", "Home", new { fileId = fileId});
+                return RedirectToAction("Index", "Manage");
             }
-
-            return RedirectToAction("Index", "Manage");
+            else
+            {
+                return RedirectToAction("Index", "Home", new { fileId = fileId });
+            }
         }
 
         private string sha1(string input)

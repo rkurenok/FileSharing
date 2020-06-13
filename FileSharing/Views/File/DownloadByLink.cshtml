@@ -4,16 +4,25 @@
     ViewBag.Title = "Download";
 }
 
-@*<h2>Download</h2>*@
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div style="height: 57vh;">
     <div id="downloadByLink" class="text-center" style="margin: 0 auto ">
         <div>
+            <br />
             <p style="font-size: 19px; color: #57adf7;">@Html.DisplayFor(model => model.Name)</p>
             <br />
-            @ViewBag.User.Login
-            <br />
-            @*@Html.DisplayFor(model => model.SizeInBytes)*@
             @{
                 string size = string.Format("{0} Б", Model.SizeInBytes);
                 double sizeInKBytes, sizeInMBytes, sizeInGBytes;
@@ -33,9 +42,7 @@
                     }
                 }
             }
-            @size
-            <br />
-            @Html.DisplayFor(model => model.Date)
+            <div style="font-size:16px;"><b>Размер: @size</b></div>
         </div>
         <div class="row">
             <br />

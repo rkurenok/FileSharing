@@ -1,163 +1,157 @@
-﻿@*@model FileSharing.Models.User*@
-@model FileSharing.Models.PageViewModel
+﻿@model FileSharing.Models.PageViewModel
 @using FileSharing.Helpers
 
 @{
     ViewBag.Title = "AccountDetails";
+    string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
 }
-<p class="text-success">@ViewBag.StatusMessage</p>
-<h2>DetailsAccount</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Email)*@
-            Email
-        </dt>
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="text-event-success container-fluid">@ViewBag.StatusMessage</div>
+}
+<br />
+<h2 id="headerId" class="container">Профиль пользователя</h2>
+<br />
+<br />
 
-        <dd>
-            @*@Html.DisplayFor(model => model.Email)*@
-            @ViewBag.User.Email
+<div style="margin:0 auto;">
+    <div id="accountDetailsAdmin" class="text-center" style=" margin: auto;">
+        <br />
+        <div>
+            <dl class="row">
+                <dt class="col-md-6">
+                    Email
+                </dt>
 
-        </dd>
+                <dd class="col-md-6">
+                    @ViewBag.User.Email
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    Логин
+                </dt>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Login)*@
-            Логин
-        </dt>
+                <dd class="col-md-6">
+                    @ViewBag.User.Login
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    Возраст
+                </dt>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.Login)*@
-            @ViewBag.User.Login
-        </dd>
+                <dd class="col-md-6">
+                    @ViewBag.User.Age
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    Пол
+                </dt>
 
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Password)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Password)
-            </dd>*@
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Age)*@
-            Возраст
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.Age)*@
-            @ViewBag.USer.Age
-        </dd>
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Gender)*@
-            Пол
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.Gender)*@
-            @ViewBag.User.Gender
-        </dd>
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.RoleId)*@
-            Роль
-        </dt>
-
-        <dd>
-            @ViewBag.User.RoleId &nbsp; &nbsp;
-            @*@Html.DisplayFor(model => model.RoleId) &nbsp; &nbsp;*@
-            @if (ViewBag.User.Login != User.Identity.Name)
-            {
-                @Html.ActionLink("Изменить роль", "EditUserRole", new { userId = ViewBag.User.Id })
-            }
-        </dd>
-
-    </dl>
+                <dd class="col-md-6">
+                    @ViewBag.User.Gender
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    Роль
+                </dt>
+                <dd class="col-md-6">
+                    @if (@ViewBag.User.RoleId == 2)
+                    {
+                        <p>User</p>
+                    }
+                    else
+                    {
+                        <p>Admin</p>
+                    }
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-6">
+                    @Html.ActionLink("Изменить роль", "EditUserRole", new { userId = ViewBag.User.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "min-width: 219px" })
+                </dt>
+                <dt class="col-md-6">
+                    @Html.ActionLink("Назад", "Index", "Admin", null, htmlAttributes: new { @class = "btn btn-warning", @style = "min-width: 219px" })
+                </dt>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
-<table class="table">
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Name)*@
-            Название
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.SizeInBytes)*@
-            Размер
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.User.Login)*@
-            Автор
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Date)*@
-            Дата загрузки
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Date)*@
-            Доступ к файлу
-        </th>
-        <th></th>
-    </tr>
+<br />
+<h2 id="headerId" class="container">Файлы пользователя</h2>
+<br />
+<br />
 
+<div class="row" style="">
     @foreach (var item in Model.Files)
     {
-        <tr>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Name)*@
-                @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, null)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.SizeInBytes)*@
-                @{
-                    string size = string.Format("{0} Б", item.SizeInBytes);
-                    double sizeInKBytes, sizeInMBytes, sizeInGBytes;
-                    if (item.SizeInBytes >= 1024)
-                    {
-                        sizeInKBytes = (double)item.SizeInBytes / 1024;
-                        size = string.Format("{0:N2} КБ", sizeInKBytes);
-                        if (sizeInKBytes >= 1024)
-                        {
-                            sizeInMBytes = (double)sizeInKBytes / 1024;
-                            size = string.Format("{0:N2} МБ", sizeInMBytes);
-                            if (sizeInMBytes >= 1024)
+        <div class="col-md-3">
+            <div class="thumbnail pull-left">
+                <div style="margin:0 auto;">
+                    <div id="fileIndex" class="text-center" style=" margin: auto;">
+                        <br />
+                        @Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, htmlAttributes: new { @style = "font-size: 19px; color: #78c0ff;" })
+                        <br />
+                        <br />
+
+                        @{string size = string.Format("{0} Б", item.SizeInBytes);
+                            double sizeInKBytes, sizeInMBytes, sizeInGBytes;
+                            if (item.SizeInBytes >= 1024)
                             {
-                                sizeInGBytes = (double)sizeInMBytes / 1024;
-                                size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                                sizeInKBytes = (double)item.SizeInBytes / 1024;
+                                size = string.Format("{0:N2} КБ", sizeInKBytes);
+                                if (sizeInKBytes >= 1024)
+                                {
+                                    sizeInMBytes = (double)sizeInKBytes / 1024;
+                                    size = string.Format("{0:N2} МБ", sizeInMBytes);
+                                    if (sizeInMBytes >= 1024)
+                                    {
+                                        sizeInGBytes = (double)sizeInMBytes / 1024;
+                                        size = string.Format("{0:N2} ГБ", sizeInGBytes);
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                @size
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @(item.AccessId == 1 ? "private" : "public")
-            </td>
-            <td>
-                @using (Html.BeginForm("Delete", "File", new { fileId = item.Id }))
-                {
-                    @*@Html.Hidden("Id", item.Id)*@
-                    <input type="submit" class="btn btn-default btn-xs" value="Удалить файл" />
-                }
-                @Html.ActionLink("Скачать", "Download", new { fileId = item.Id })
-            </td>
-        </tr>
-    }
+                        <div>@size</div>
+                        @Html.DisplayFor(modelItem => item.Date)
+                        <br />
+                        @(item.AccessId == 1 ? "Закрытый" : "Открытый")
+                        <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
+                        <div class="row">
+                            <br />
+                        </div>
+                        <div class="row">
+                            <br />
+                        </div>
 
-</table>
-<div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("AccountDetails", new { page = x, userId = ViewBag.User.Id }))
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.ActionLink("Скачать", "Download", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "background-color: #5cb85cbf" })
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.ActionLink("Удалить", "Delete", "File", new { fileId = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "viewDiv()" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="btn-group btn-group-lg">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, category = ViewBag.CategoryId }))
+        </div>
+    </div>
+</div>
+<br />

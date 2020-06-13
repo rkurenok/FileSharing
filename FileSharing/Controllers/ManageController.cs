@@ -25,13 +25,6 @@ namespace FileSharing.Controllers
             User user = null;
             IEnumerable<File> files;
 
-            //using (UserContext db = new UserContext())
-            //{
-            //    var userName = User.Identity.Name;
-            //    user = db.Users.FirstOrDefault(u => u.Login == userName);
-            //    files = db.Files.Include(f => f.User);
-            //}
-
             var userName = User.Identity.Name;
             user = db.Users.FirstOrDefault(u => u.Login == userName);
             files = db.Files.Include(f => f.User).Where(f => f.UserId == user.Id);

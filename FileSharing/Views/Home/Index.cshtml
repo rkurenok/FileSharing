@@ -2,29 +2,26 @@
     ViewBag.Title = "Главная страница";
     string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
 }
-<p class="text-success">@ViewBag.StatusMessage</p>
-@*<h2>Главная страница</h2>
 
-@ViewBag.Result*@
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="text-event-success container-fluid">@ViewBag.StatusMessage</div>
+}
 <h2 class="text-center" id="headerId">Загружайте и делитесь файлами.</h2>
 <h3 class="text-center" id="headerId">Выберите файл для загрузки</h3>
 <br />
-@*<button type="button" id="glyphiconAdd">
-        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="font-size: 250%"></span>
-    </button>*@
-<div style="margin:0 auto;">
-    <div id="upload" class="text-center" style=" margin: auto;">
-        @using (Html.BeginForm("Upload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            if (User.Identity.IsAuthenticated)
-            {
+@using (Html.BeginForm("Upload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <div style="margin:0 auto;">
+            <div id="upload1" class="text-center" style=" margin: auto;">
+                <br /><br />
                 <br />
                 <div>
-                    @*<input type="file" name="uploads" multiple>
-                    <br>*@
                     <input type="file" name="uploads" id="file-lg" class="file-select file-select-lg" multiple />
                     <label for="file-lg" class="filename">
-                        Выберите файлы...
+                        Выберите файлы...(до 2,5Гб)
                     </label>
                     <p id="result"></p>
                     <br />
@@ -32,16 +29,6 @@
                         <div>
                             <h4>Доступ к файлу</h4>
                         </div>
-                        <!-- Material checked -->
-                        @*<div class="form-check">
-                            <label class="form-check-label" for="materialChecked">Закрытый</label>
-                            <input type="radio" class="form-check-input" id="materialChecked" name="access" checked>
-                        </div>*@
-                        <!-- Material unchecked -->
-                        @*<div class="form-check">
-                            <input type="radio" class="form-check-input" id="materialUnchecked" name="access">
-                            <label class="form-check-label" for="materialUnchecked">Открытый</label>
-                        </div>*@
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
                                 <input type="radio" name="access" id="option1" autocomplete="off" value="private" checked> Закрытый
@@ -51,24 +38,15 @@
                             </label>
                         </div>
                         <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
-                        @*<div id="access">
-                            Закрытый
-                            @Html.RadioButton("access", "private", true, htmlAttributes: new { @id = "materialChecked" }) &nbsp;
-                            Открытый
-                            @Html.RadioButton("access", "public")
-                        </div>*@
                         <br />
                         <br />
                         <div>
                             <h4>Срок хранения файла</h4>
                         </div>
-                        @*3 дня
-                        @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
-                        7 дней
-                        @Html.RadioButton("retentionPeriodId", 2) &nbsp;
-                        1 месяц
-                        @Html.RadioButton("retentionPeriodId", 3) &nbsp;*@
                         <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="retentionPeriodId" id="option1" autocomplete="off" value=1> 1 скачивание
+                            </label>
                             <label class="btn btn-primary active">
                                 <input type="radio" name="retentionPeriodId" id="option1" autocomplete="off" value=1 checked> 3 дня
                             </label>
@@ -80,20 +58,50 @@
                             </label>
                         </div>
                     </div>
-                    <br />
+                    <br /><br />
                 </div>
                 <input type="submit" class="btn btn-primary" value="Загрузить" />
-            }
-            else
-            {
+                @{
+                    string link;
+                }
+                @if (ViewBag.File != null)
+                {
+                    <br />
+                    <div>Загруженный файл:</div>
+                    <span class="glyphicon glyphicon-file"></span>@ViewBag.File.Name
+                    <br />
+                    <br />
+                    if (ViewBag.File.FileUniqueKeyId == null)
+                    {
+                        @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = ViewBag.File.Id }, htmlAttributes: new { @style = "color:;", @class = "btn btn-primary" })
+                    }
+                    if (ViewBag.File.FileUniqueKeyId != null)
+                    {
+                        foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                        {
+                            if (ViewBag.File.FileUniqueKeyId == uniqueKey.Id)
+                            {
+                                link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                <a id="linkFile" onclick="copyToClipboard()">@link</a>
+                                <br />
+                                <div style="color:#fff;">Нажмите на ссылку, чтобы скопировать ее</div>
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div style="margin:0 auto;">
+            <div id="upload2" class="text-center" style=" margin: auto;">
                 <br />
                 <div>
-                    @*<input type="file" name="uploads" multiple>
-                    <br>*@
                     <input type="file" name="uploads" id="file-lg" class="file-select file-select-lg" multiple />
                     <label for="file-lg" class="filename">
                         <i class="fa fa-arrow-circle-o-up"></i>
-                        Выберите файл...
+                        Выберите файл...(до 1ГБ)
                     </label>
                     <p id="result"></p>
                     <br />
@@ -101,16 +109,6 @@
                         <div>
                             <h4>Доступ к файлу</h4>
                         </div>
-                        <!-- Material checked -->
-                        @*<div class="form-check">
-                            <label class="form-check-label" for="materialChecked">Закрытый</label>
-                            <input type="radio" class="form-check-input" id="materialChecked" name="access" checked>
-                        </div>*@
-                        <!-- Material unchecked -->
-                        @*<div class="form-check">
-                            <input type="radio" class="form-check-input" id="materialUnchecked" name="access">
-                            <label class="form-check-label" for="materialUnchecked">Открытый</label>
-                        </div>*@
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
                                 <input type="radio" name="access" id="option1" autocomplete="off" value="private" checked> Закрытый
@@ -120,23 +118,11 @@
                             </label>
                         </div>
                         <span id="btn-tooltip" style="font-size: 100%" class="glyphicon glyphicon-question-sign btn-secondary" data-toggle="tooltip" data-placement="right" title="@text"></span>
-                        @*<div id="access">
-                            Закрытый
-                            @Html.RadioButton("access", "private", true, htmlAttributes: new { @id = "materialChecked" }) &nbsp;
-                            Открытый
-                            @Html.RadioButton("access", "public")
-                        </div>*@
                         <br />
                         <br />
                         <div>
                             <h4>Срок хранения файла</h4>
                         </div>
-                        @*3 дня
-                        @Html.RadioButton("retentionPeriodId", 1, true) &nbsp;
-                        7 дней
-                        @Html.RadioButton("retentionPeriodId", 2) &nbsp;
-                        1 месяц
-                        @Html.RadioButton("retentionPeriodId", 3) &nbsp;*@
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
                                 <input type="radio" name="retentionPeriodId" id="option1" autocomplete="off" value=1 checked> 3 дня
@@ -149,48 +135,44 @@
                             </label>
                         </div>
                     </div>
-                    <br />
                 </div>
-                <input type="submit" class="btn btn-primary" value="Загрузить" />
-                <br /> <br />
-                @Html.ActionLink("Войдите, чтобы отправлять файлы до 2,5ГБ", "Login", "Account")
-            }
-        }
-        @{
-            string link;
-        }
-        @if (ViewBag.File != null)
-        {
-            @ViewBag.File.Name
-            <br />
-            @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = ViewBag.File.Id }, htmlAttributes: new { @style = "color: #4faeff;" })
-            <br />
-            if (ViewBag.File.FileUniqueKeyId != null)
-            {
-                foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                <input type="submit" class="btn btn-primary btn-lg" value="Загрузить" />
+                @{
+                    string link;
+                }
+                @if (ViewBag.File != null)
                 {
-                    if (ViewBag.File.FileUniqueKeyId == uniqueKey.Id)
+                    <br /><br />
+                    <div>Загруженный файл:</div>
+                    <span class="glyphicon glyphicon-file"></span>@ViewBag.File.Name
+                    <br />
+                    if (ViewBag.File.FileUniqueKeyId == null)
                     {
-                        link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
-                        @*@Html.ActionLink("Скачать через ссылку", "DownloadByLink", "File", new { fileId = item.Id, uniqueKey = uniqueKey.UniqueKey }, null)*@
-                        <a id="linkFile" onclick="copyToClipboard()">@link</a>
-                        <br />
-                        <div>Нажмите на ссылку, чтобы скопировать ее</div>
+                        @Html.ActionLink("Сгенерировать ссылку для скачивания", "GetFileDownloadLink", "File", new { fileId = ViewBag.File.Id }, htmlAttributes: new { @style = "color:;", @class = "btn btn-primary" })
+                    }
+                    if (ViewBag.File.FileUniqueKeyId != null)
+                    {
+                        foreach (var uniqueKey in ViewBag.FileUniqueKeys)
+                        {
+                            if (ViewBag.File.FileUniqueKeyId == uniqueKey.Id)
+                            {
+                                link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                <a id="linkFile" onclick="copyToClipboard()">@link</a>
+                                <br />
+                                <div style="color:#fff;">Нажмите на ссылку, чтобы скопировать ее</div>
+                            }
+                        }
                     }
                 }
-            }
-        }
-    </div>
-</div>
+                <br /><br />
+                @Html.ActionLink("Войдите, чтобы загружать файлы до 2,5ГБ", "Login", "Account", htmlAttributes: new { @class = "btn btn-info", @style = "position: absolute; bottom: 20px; right: 80px;" })
+            </div>
+        </div>
+    }
+}
 
 @section scripts {
     <script type="text/javascript">
-        @*var access = document.getElementById("access");
-        access.hidden = true;
-        if (@User.Identity.IsAuthenticated) {
-            //access.style.display = "block";
-            access.hidden = false;
-        }*@
 
         function copyToClipboard() {
             var copytext = document.createElement('input')
@@ -219,24 +201,9 @@
 
         })
 
-        //$(function () {
-        //    $("input:file").change(function () {
-        //        var fileName = $(this).val().split('\\').pop();
-        //        $(this).next('label').html('<i class="fa fa-file"></i> ' + fileName);
-        //    });
-        //});
-
         $(document).ready(function () {
 
             $("input:file").change(function () { // Выполняем функцию после выбора файлов
-
-                //var name_file = []; // Создаем массив
-
-                //for (var i = 0; i < $(this).get(0).files.length; ++i) { // Запускаем цикл и перебираем все файлы
-
-                //    name_file.push($(this).get(0).files[i].name); // Добавляем имена файлов в массив
-                //}
-                //$("#result").html('<span class="glyphicon glyphicon-file"></span> ' + name_file.join("</br> "));
 
                 var name_files = [];
                 var arrayHtml = '<div>массив: </div>';

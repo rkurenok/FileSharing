@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#c1c1c13b;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,35 +17,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("FileSharing", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("FileSharing", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color: #e0e0e0;" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Информация", "About", "Home")</li>
-                    <li>@Html.ActionLink("Связаться", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Файлы", "Index", "File")</li>
-                    @using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
+                    <li>@Html.ActionLink("Файлы", "Index", "File", new { category = 0 }, new { @style = "color: #e0e0e0;" })</li>
+                    <li>@Html.ActionLink("О нас", "About", "Home", new { @style = "color: #e0e0e0;" })</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home", new { @style = "color: #e0e0e0;" })</li>
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="containerTest">
-                            @Html.TextBox("serachFile", null, new { @placeholder = "Найти...", @id = "inputTextSearch" })
-                            <div class="search"></div>
-                        </li>
+                        using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
+                        {
+                            <li class="containerTest">
+                                @Html.TextBox("serachFile", null, new { @placeholder = "Найти...", @id = "inputTextSearch" })
+                                <div class="search"></div>
+                            </li>
+                        }
                     }
-                    @*<li>@Html.ActionLink("Войти", "Login", "Account")</li>
-        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
-                @*@Html.Partial("_SearchPartial")*@
             </div>
         </div>
     </div>
     <div class="container-fluid body-content">
         @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - мое приложение ASP.NET</p>
-        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
