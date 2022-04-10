@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Аккаунт";
     string text = "Если файл имеет тип доступа \"Закрытый\", то доступ к этому файлу имеете только вы в своем профиле, а если файл имеет тип доступа \"Открытый\", то доступ к нему имеют все пользователи во вкладке \"Файлы\"";
+    int count = 0;
 }
 
 
@@ -143,10 +144,11 @@
                                             {
                                                 if (item.FileUniqueKeyId == uniqueKey.Id)
                                                 {
-                                                    link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                                    //link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                                    link = Url.Content("http://filesharing.somee.com/File/DownloadByLink?fileId=" + item.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
                                                     <div id="linkHidden">
                                                         <div style="color: #ffffffd9">Ссылка для скачивания:</div>
-                                                        <a id="linkFile" style="color: #a2d4ff" onclick="copyToClipboard()">@link</a>
+                                                        <a class="linkFile" style="color: #a2d4ff" onclick="copyToClipboard(@count)">@link</a>
                                                         <br />
                                                         <div style="color: #ffffffd9">Нажмите на ссылку, чтобы скопировать ее</div>
                                                     </div>
@@ -155,6 +157,7 @@
                                         }
                                     </div>
                                 </div>
+                                @{count++;}
                                 <div class="row">
                                     <br />
                                 </div>
@@ -195,13 +198,14 @@
 
 @section scripts {
     <script type="text/javascript">
-        function copyToClipboard() {
-            var copytext = document.createElement('input')
-            copytext.value = document.getElementById("linkFile").innerHTML.toString();
-            document.body.appendChild(copytext)
-            copytext.select()
-            document.execCommand('copy')
-            document.body.removeChild(copytext)
+        function copyToClipboard(count) {
+            var copytext = document.createElement('input');
+            //copytext.value = document.getElementById("linkFile").innerHTML.toString();
+            copytext.value = document.querySelectorAll(".linkFile")[count].innerHTML.toString();
+            document.body.appendChild(copytext);
+            copytext.select();
+            document.execCommand('copy');
+            document.body.removeChild(copytext);
         }
 
         document.addEventListener('copy', function (e) {

@@ -13,6 +13,10 @@ namespace FileSharing.Controllers
     {
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Content("В доступе отказано");
+            }
             return View();
         }
 
@@ -44,6 +48,10 @@ namespace FileSharing.Controllers
 
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Content("В доступе отказано");
+            }
             return View();
         }
 

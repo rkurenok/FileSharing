@@ -22,8 +22,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Файлы", "Index", "File", new { category = 0 }, new { @style = "color: #e0e0e0;" })</li>
-                    <li>@Html.ActionLink("О нас", "About", "Home", new { @style = "color: #e0e0e0;" })</li>
-                    <li>@Html.ActionLink("Контакты", "Contact", "Home", new { @style = "color: #e0e0e0;" })</li>
+                    <li>@Html.ActionLink("О нас", "About", "Home", null, new { @style = "color: #e0e0e0;" })</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home", null, new { @style = "color: #e0e0e0;" })</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         using (Html.BeginForm("Index", "File", FormMethod.Post, new { id = "serachFile", @class = "navbar-right" }))
@@ -46,6 +46,7 @@
     @Scripts.Render("~/bundles/jquery")
     <script src='@Url.Content("~/Scripts/jquery.unobstrusive-ajax.js")'></script>
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/removeHostingAds")
     @RenderSection("scripts", required: false)
 </body>
 </html>
