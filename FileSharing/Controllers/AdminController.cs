@@ -20,6 +20,7 @@ namespace FileSharing.Controllers
         {
             ViewBag.StatusMessage =
                 adminMessage == AdminMessageId.DeleteAccount ? "Пользователь " + userName + " был удален"
+                : adminMessage == AdminMessageId.FilesNotFound ? "Файлов в базе нет"
                 : "";
 
             string property = "";
@@ -187,6 +188,11 @@ namespace FileSharing.Controllers
 
             string property = "";
             File file1 = files.FirstOrDefault();
+
+            if (file1 == null)
+            {
+                return RedirectToAction("Index", "Admin", new { item = users, AdminMessageId.FilesNotFound, userName =  ""});
+            }
             PropertyInfo[] properties = file1.GetType().GetProperties();
             foreach (PropertyInfo prop in properties)
             {
@@ -267,6 +273,7 @@ namespace FileSharing.Controllers
     {
         EditUserRole,
         DeleteAccount,
-        Error
+        Error,
+        FilesNotFound
     }
 }

@@ -81,7 +81,8 @@
                         {
                             if (ViewBag.File.FileUniqueKeyId == uniqueKey.Id)
                             {
-                                link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                //link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                link = Url.Content("http://filesharing.somee.com/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
                                 <a id="linkFile" onclick="copyToClipboard()">@link</a>
                                 <br />
                                 <div style="color:#fff;">Нажмите на ссылку, чтобы скопировать ее</div>
@@ -156,7 +157,8 @@
                         {
                             if (ViewBag.File.FileUniqueKeyId == uniqueKey.Id)
                             {
-                                link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                //link = Url.Content("https://localhost:44301/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
+                                link = Url.Content("http://filesharing.somee.com/File/DownloadByLink?fileId=" + ViewBag.File.Id + '&' + "uniqueKey=" + uniqueKey.UniqueKey);
                                 <a id="linkFile" onclick="copyToClipboard()">@link</a>
                                 <br />
                                 <div style="color:#fff;">Нажмите на ссылку, чтобы скопировать ее</div>
@@ -165,7 +167,7 @@
                     }
                 }
                 <br /><br />
-                @Html.ActionLink("Войдите, чтобы загружать файлы до 2,5ГБ", "Login", "Account", htmlAttributes: new { @class = "btn btn-info", @style = "position: absolute; bottom: 20px; right: 80px;" })
+                @Html.ActionLink("Войдите, чтобы загружать файлы до 2,5ГБ", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info", @style = "position: absolute; bottom: 20px; right: 80px;" })
             </div>
         </div>
     }

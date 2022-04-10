@@ -14,7 +14,8 @@ namespace FileSharing.Controllers
     {
         UserContext db = new UserContext();
 
-        public const string INTERNAL_FILE_PATH = @"E:\Универ\8 семестр\Диплом\FileSharing\FileSharing\FileSharing\Content\Files\";
+        //public const string INTERNAL_FILE_PATH = @"G:\Универ\8 семестр\Диплом\FileSharing\FileSharing\FileSharing\Content\Files\";
+        public const string INTERNAL_FILE_PATH = @"d:\DZHosts\LocalUser\armani\www.filesharing.somee.com\Content\Files\";
         public const string FILE_URL = "/Content/Files/";
         public const int FILE_FRAME_SIZE = 1048576; // 1024 * 1024;
         public const int FILE_ENSURANCE = 16;
@@ -260,7 +261,8 @@ namespace FileSharing.Controllers
                 url = Request.ServerVariables["HTTP_REFERER"];
             }
 
-            if (url.Contains("https://localhost:44301/Manage"))
+            //if (url.Contains("https://localhost:44301/Manage"))
+            if (url.Contains("http://filesharing.somee.com/Manage"))
             {
                 return RedirectToAction("Index", "Manage");
             }
